@@ -1,0 +1,496 @@
+{
+  "Usuarios": [
+    {
+      "Id": 1,
+      "Username": "admin",
+      "Password": "admin123",
+      "Nombre": "Administrador General",
+      "Rol": "Administrador",
+      "Activo": true
+    },
+    {
+      "Id": 2,
+      "Username": "cajero",
+      "Password": "cajero123",
+      "Nombre": "Laura M\u00E9ndez (Caja)",
+      "Rol": "Cajero",
+      "Activo": true
+    },
+    {
+      "Id": 3,
+      "Username": "mesero",
+      "Password": "mesero123",
+      "Nombre": "Carlos Rivera (Piso)",
+      "Rol": "Mesero",
+      "Activo": true
+    }
+  ],
+  "Mesas": [
+    {
+      "Id": 1,
+      "Numero": 1,
+      "Nombre": "Mesa 1",
+      "Capacidad": 4,
+      "Zona": "Terraza Jard\u00EDn",
+      "Estado": "Ocupada",
+      "OrdenActualId": 102,
+      "OrdenActiva": {
+        "Id": 102,
+        "Folio": "ORD-0102",
+        "MesaId": 1,
+        "MesaNumero": 1,
+        "MesaCapacidad": 4,
+        "Mesero": "Carlos Rivera",
+        "CantAdultos": 2,
+        "PrecioAdulto": 280.00,
+        "CantNinos": 2,
+        "PrecioNino": 180.00,
+        "SubtotalBuffet": 920.00,
+        "SubtotalExtras": 70.00,
+        "Descuento": 0,
+        "Propina": 0,
+        "Total": 990.00,
+        "Notas": "Familia con periquera",
+        "Estado": "Abierta",
+        "FechaApertura": "2026-10-03T13:45:14.9184664-06:00",
+        "FechaCierre": null,
+        "Extras": [
+          {
+            "Id": 3,
+            "OrdenId": 102,
+            "ProductoId": 1,
+            "NombreProducto": "Refresco lata 355ml",
+            "PrecioUnitario": 35.00,
+            "Cantidad": 2,
+            "Subtotal": 70.00
+          }
+        ]
+      }
+    },
+    {
+      "Id": 2,
+      "Numero": 2,
+      "Nombre": "Mesa 2",
+      "Capacidad": 4,
+      "Zona": "Terraza Jard\u00EDn",
+      "Estado": "Libre",
+      "OrdenActualId": null,
+      "OrdenActiva": null
+    },
+    {
+      "Id": 3,
+      "Numero": 3,
+      "Nombre": "Mesa 3",
+      "Capacidad": 4,
+      "Zona": "Sal\u00F3n Principal",
+      "Estado": "Libre",
+      "OrdenActualId": null,
+      "OrdenActiva": null
+    },
+    {
+      "Id": 4,
+      "Numero": 4,
+      "Nombre": "Mesa 4",
+      "Capacidad": 4,
+      "Zona": "Sal\u00F3n Principal",
+      "Estado": "Libre",
+      "OrdenActualId": null,
+      "OrdenActiva": null
+    },
+    {
+      "Id": 5,
+      "Numero": 5,
+      "Nombre": "Mesa 5",
+      "Capacidad": 4,
+      "Zona": "Sal\u00F3n Principal",
+      "Estado": "Libre",
+      "OrdenActualId": null,
+      "OrdenActiva": null
+    },
+    {
+      "Id": 6,
+      "Numero": 6,
+      "Nombre": "Mesa 6",
+      "Capacidad": 6,
+      "Zona": "Sal\u00F3n Principal",
+      "Estado": "Por Pagar",
+      "OrdenActualId": 103,
+      "OrdenActiva": {
+        "Id": 103,
+        "Folio": "ORD-0103",
+        "MesaId": 6,
+        "MesaNumero": 6,
+        "MesaCapacidad": 6,
+        "Mesero": "Carlos Rivera",
+        "CantAdultos": 4,
+        "PrecioAdulto": 280.00,
+        "CantNinos": 1,
+        "PrecioNino": 180.00,
+        "SubtotalBuffet": 1300.00,
+        "SubtotalExtras": 155.00,
+        "Descuento": 0,
+        "Propina": 0,
+        "Total": 1455.00,
+        "Notas": "Solicitaron la cuenta",
+        "Estado": "Abierta",
+        "FechaApertura": "2026-10-03T13:30:14.9184686-06:00",
+        "FechaCierre": null,
+        "Extras": [
+          {
+            "Id": 4,
+            "OrdenId": 103,
+            "ProductoId": 2,
+            "NombreProducto": "Jarra de Agua Fresca (2L)",
+            "PrecioUnitario": 95.00,
+            "Cantidad": 1,
+            "Subtotal": 95.00
+          },
+          {
+            "Id": 5,
+            "OrdenId": 103,
+            "ProductoId": 3,
+            "NombreProducto": "Vaso de Agua del D\u00EDa",
+            "PrecioUnitario": 30.00,
+            "Cantidad": 2,
+            "Subtotal": 60.00
+          }
+        ]
+      }
+    },
+    {
+      "Id": 7,
+      "Numero": 7,
+      "Nombre": "Mesa 7",
+      "Capacidad": 6,
+      "Zona": "Sal\u00F3n Principal",
+      "Estado": "Libre",
+      "OrdenActualId": null,
+      "OrdenActiva": null
+    },
+    {
+      "Id": 8,
+      "Numero": 8,
+      "Nombre": "Mesa 8",
+      "Capacidad": 6,
+      "Zona": "\u00C1rea Familiar",
+      "Estado": "Libre",
+      "OrdenActualId": null,
+      "OrdenActiva": null
+    },
+    {
+      "Id": 9,
+      "Numero": 9,
+      "Nombre": "Mesa 9",
+      "Capacidad": 6,
+      "Zona": "\u00C1rea Familiar",
+      "Estado": "Libre",
+      "OrdenActualId": null,
+      "OrdenActiva": null
+    },
+    {
+      "Id": 10,
+      "Numero": 10,
+      "Nombre": "Mesa 10",
+      "Capacidad": 10,
+      "Zona": "Sal\u00F3n VIP / Grupos",
+      "Estado": "Libre",
+      "OrdenActualId": null,
+      "OrdenActiva": null
+    },
+    {
+      "Id": 11,
+      "Numero": 11,
+      "Nombre": "Mesa 11",
+      "Capacidad": 10,
+      "Zona": "Sal\u00F3n VIP / Grupos",
+      "Estado": "Libre",
+      "OrdenActualId": null,
+      "OrdenActiva": null
+    },
+    {
+      "Id": 12,
+      "Numero": 12,
+      "Nombre": "Mesa 12",
+      "Capacidad": 10,
+      "Zona": "Terraza Grande",
+      "Estado": "Libre",
+      "OrdenActualId": null,
+      "OrdenActiva": null
+    }
+  ],
+  "ProductosExtra": [
+    {
+      "Id": 1,
+      "Nombre": "Refresco lata 355ml",
+      "Categoria": "Bebida",
+      "Precio": 35.00,
+      "Activo": true
+    },
+    {
+      "Id": 2,
+      "Nombre": "Jarra de Agua Fresca (2L)",
+      "Categoria": "Bebida",
+      "Precio": 95.00,
+      "Activo": true
+    },
+    {
+      "Id": 3,
+      "Nombre": "Vaso de Agua del D\u00EDa",
+      "Categoria": "Bebida",
+      "Precio": 30.00,
+      "Activo": true
+    },
+    {
+      "Id": 4,
+      "Nombre": "Cerveza Nacional",
+      "Categoria": "Bebida",
+      "Precio": 55.00,
+      "Activo": true
+    },
+    {
+      "Id": 5,
+      "Nombre": "Cerveza Artesanal",
+      "Categoria": "Bebida",
+      "Precio": 80.00,
+      "Activo": true
+    },
+    {
+      "Id": 6,
+      "Nombre": "Caf\u00E9 de Olla Refill",
+      "Categoria": "Bebida",
+      "Precio": 40.00,
+      "Activo": true
+    },
+    {
+      "Id": 7,
+      "Nombre": "Limonada / Naranjada Mineral",
+      "Categoria": "Bebida",
+      "Precio": 45.00,
+      "Activo": true
+    },
+    {
+      "Id": 8,
+      "Nombre": "Postre Especial (Pastel de Elote)",
+      "Categoria": "Postre",
+      "Precio": 65.00,
+      "Activo": true
+    },
+    {
+      "Id": 9,
+      "Nombre": "Flan Napolitano de la Casa",
+      "Categoria": "Postre",
+      "Precio": 55.00,
+      "Activo": true
+    },
+    {
+      "Id": 10,
+      "Nombre": "Paquete Cumplea\u00F1os (Pastelito \u002B Vela)",
+      "Categoria": "Especial",
+      "Precio": 120.00,
+      "Activo": true
+    }
+  ],
+  "Ordenes": [
+    {
+      "Id": 100,
+      "Folio": "ORD-0100",
+      "MesaId": 2,
+      "MesaNumero": 2,
+      "MesaCapacidad": 4,
+      "Mesero": "Carlos Rivera",
+      "CantAdultos": 2,
+      "PrecioAdulto": 280.00,
+      "CantNinos": 1,
+      "PrecioNino": 180.00,
+      "SubtotalBuffet": 740.00,
+      "SubtotalExtras": 95.00,
+      "Descuento": 0,
+      "Propina": 80.00,
+      "Total": 915.00,
+      "Notas": null,
+      "Estado": "Pagada",
+      "FechaApertura": "2026-10-03T12:25:14.9175746-06:00",
+      "FechaCierre": "2026-10-03T13:25:14.9176525-06:00",
+      "Extras": [
+        {
+          "Id": 1,
+          "OrdenId": 100,
+          "ProductoId": 2,
+          "NombreProducto": "Jarra de Agua Fresca (2L)",
+          "PrecioUnitario": 95.00,
+          "Cantidad": 1,
+          "Subtotal": 95.00
+        }
+      ]
+    },
+    {
+      "Id": 101,
+      "Folio": "ORD-0101",
+      "MesaId": 10,
+      "MesaNumero": 10,
+      "MesaCapacidad": 10,
+      "Mesero": "Laura M\u00E9ndez",
+      "CantAdultos": 6,
+      "PrecioAdulto": 280.00,
+      "CantNinos": 3,
+      "PrecioNino": 180.00,
+      "SubtotalBuffet": 2220.00,
+      "SubtotalExtras": 190.00,
+      "Descuento": 0,
+      "Propina": 240.00,
+      "Total": 2650.00,
+      "Notas": null,
+      "Estado": "Pagada",
+      "FechaApertura": "2026-10-03T12:50:14.9183857-06:00",
+      "FechaCierre": "2026-10-03T13:55:14.9183885-06:00",
+      "Extras": [
+        {
+          "Id": 2,
+          "OrdenId": 101,
+          "ProductoId": 2,
+          "NombreProducto": "Jarra de Agua Fresca (2L)",
+          "PrecioUnitario": 95.00,
+          "Cantidad": 2,
+          "Subtotal": 190.00
+        }
+      ]
+    },
+    {
+      "Id": 102,
+      "Folio": "ORD-0102",
+      "MesaId": 1,
+      "MesaNumero": 1,
+      "MesaCapacidad": 4,
+      "Mesero": "Carlos Rivera",
+      "CantAdultos": 2,
+      "PrecioAdulto": 280.00,
+      "CantNinos": 2,
+      "PrecioNino": 180.00,
+      "SubtotalBuffet": 920.00,
+      "SubtotalExtras": 70.00,
+      "Descuento": 0,
+      "Propina": 0,
+      "Total": 990.00,
+      "Notas": "Familia con periquera",
+      "Estado": "Abierta",
+      "FechaApertura": "2026-10-03T13:45:14.9184664-06:00",
+      "FechaCierre": null,
+      "Extras": [
+        {
+          "Id": 3,
+          "OrdenId": 102,
+          "ProductoId": 1,
+          "NombreProducto": "Refresco lata 355ml",
+          "PrecioUnitario": 35.00,
+          "Cantidad": 2,
+          "Subtotal": 70.00
+        }
+      ]
+    },
+    {
+      "Id": 103,
+      "Folio": "ORD-0103",
+      "MesaId": 6,
+      "MesaNumero": 6,
+      "MesaCapacidad": 6,
+      "Mesero": "Carlos Rivera",
+      "CantAdultos": 4,
+      "PrecioAdulto": 280.00,
+      "CantNinos": 1,
+      "PrecioNino": 180.00,
+      "SubtotalBuffet": 1300.00,
+      "SubtotalExtras": 155.00,
+      "Descuento": 0,
+      "Propina": 0,
+      "Total": 1455.00,
+      "Notas": "Solicitaron la cuenta",
+      "Estado": "Abierta",
+      "FechaApertura": "2026-10-03T13:30:14.9184686-06:00",
+      "FechaCierre": null,
+      "Extras": [
+        {
+          "Id": 4,
+          "OrdenId": 103,
+          "ProductoId": 2,
+          "NombreProducto": "Jarra de Agua Fresca (2L)",
+          "PrecioUnitario": 95.00,
+          "Cantidad": 1,
+          "Subtotal": 95.00
+        },
+        {
+          "Id": 5,
+          "OrdenId": 103,
+          "ProductoId": 3,
+          "NombreProducto": "Vaso de Agua del D\u00EDa",
+          "PrecioUnitario": 30.00,
+          "Cantidad": 2,
+          "Subtotal": 60.00
+        }
+      ]
+    }
+  ],
+  "Pagos": [
+    {
+      "Id": 1,
+      "FolioTicket": "TCK-0001",
+      "OrdenId": 100,
+      "MesaNumero": 2,
+      "MesaCapacidad": 4,
+      "CantAdultos": 2,
+      "CantNinos": 1,
+      "SubtotalBuffet": 740.00,
+      "SubtotalExtras": 95.00,
+      "Descuento": 0,
+      "Propina": 80.00,
+      "MontoTotal": 915.00,
+      "MetodoPago": "Efectivo",
+      "MontoRecibido": 1000.00,
+      "Cambio": 85.00,
+      "Referencia": null,
+      "Cajero": "Laura M\u00E9ndez (Caja)",
+      "FechaPago": "2026-10-03T13:25:14.9198213-06:00",
+      "Extras": [
+        {
+          "Id": 1,
+          "OrdenId": 100,
+          "ProductoId": 2,
+          "NombreProducto": "Jarra de Agua Fresca (2L)",
+          "PrecioUnitario": 95.00,
+          "Cantidad": 1,
+          "Subtotal": 95.00
+        }
+      ]
+    },
+    {
+      "Id": 2,
+      "FolioTicket": "TCK-0002",
+      "OrdenId": 101,
+      "MesaNumero": 10,
+      "MesaCapacidad": 10,
+      "CantAdultos": 6,
+      "CantNinos": 3,
+      "SubtotalBuffet": 2220.00,
+      "SubtotalExtras": 190.00,
+      "Descuento": 0,
+      "Propina": 240.00,
+      "MontoTotal": 2650.00,
+      "MetodoPago": "Tarjeta",
+      "MontoRecibido": 2650.00,
+      "Cambio": 0.00,
+      "Referencia": "AUT-88412",
+      "Cajero": "Laura M\u00E9ndez (Caja)",
+      "FechaPago": "2026-10-03T13:55:14.9200931-06:00",
+      "Extras": [
+        {
+          "Id": 2,
+          "OrdenId": 101,
+          "ProductoId": 2,
+          "NombreProducto": "Jarra de Agua Fresca (2L)",
+          "PrecioUnitario": 95.00,
+          "Cantidad": 2,
+          "Subtotal": 190.00
+        }
+      ]
+    }
+  ]
+}
