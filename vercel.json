@@ -1,5 +1,0 @@
-{
-  "version": 2,
-  "buildCommand": "cd frontend-react && npm install && npm run build && cp -r ../backend-dotnet/HaciendaApi/wwwroot/* ../",
-  "outputDirectory": "."
-}
