@@ -1,9 +1,7 @@
 import React from 'react';
 
 /**
- * Logo Oficial de "La Hacienda Restaurante" (Imagen PNG con fondo 100% transparente)
- * - theme="dark": versión en blanco puro (#FFFFFF) con canal alfa transparente para fondos negros
- * - theme="light": versión en negro puro (#000000) con canal alfa transparente para fondos claros/tickets
+ * Logo Oficial de "La Hacienda Restaurante" en color Blanco con fondo 100% transparente
  */
 export const HaciendaLogo = ({
   theme = 'dark',
@@ -23,8 +21,8 @@ export const HaciendaLogo = ({
         style={{
           filter:
             theme === 'light'
-              ? 'contrast(1.15) drop-shadow(0 2px 6px rgba(0,0,0,0.12))'
-              : 'contrast(1.15) drop-shadow(0 0 14px rgba(255,255,255,0.28))',
+              ? 'contrast(1.2) drop-shadow(0 2px 6px rgba(0,0,0,0.15))'
+              : 'brightness(1.25) contrast(1.3) drop-shadow(0 0 18px rgba(255,255,255,0.45))',
         }}
         className={`w-full h-full object-contain bg-transparent transition-all duration-300 ${imgClassName}`}
       />

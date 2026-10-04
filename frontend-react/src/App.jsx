@@ -322,12 +322,20 @@ const MainContent = () => {
         onLogoClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       />
 
-      <section className="w-full relative z-10 pt-24 pb-14 overflow-hidden">
+      <section className="w-full relative z-10 pt-28 pb-14 overflow-hidden">
         <main
           ref={systemRef}
           id="interactive-system"
           className="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 space-y-6 scroll-mt-24"
         >
+          {/* Logo Oficial en Blanco Protagonista */}
+          <div className="flex flex-col items-center justify-center text-center py-2">
+            <HaciendaLogo
+              theme="dark"
+              className="w-36 h-40 sm:w-44 sm:h-48"
+            />
+          </div>
+
           {/* Resumen Superior en 4 Tarjetas */}
           <AnimeMetricsHub onNavigateTab={handleSelectFeature} />
 
@@ -345,13 +353,12 @@ const MainContent = () => {
       {/* Footer Minimalista */}
       <footer className="relative z-10 border-t border-white/15 bg-black/90 backdrop-blur-xl py-6 text-center text-xs text-neutral-400 mt-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3.5">
             <HaciendaLogo
-              variant="emblem"
               theme="dark"
-              className="w-10 h-11"
+              className="w-16 h-18"
             />
-            <span className="font-anton text-lg text-white tracking-wider uppercase">
+            <span className="font-anton text-xl text-white tracking-wider uppercase">
               La Hacienda
             </span>
           </div>

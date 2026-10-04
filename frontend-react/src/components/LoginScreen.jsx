@@ -63,17 +63,13 @@ export const LoginScreen = ({ onLoginSuccess }) => {
       </div>
 
       <div className="relative z-10 w-full max-w-md rounded-3xl bg-neutral-950/90 backdrop-blur-2xl border border-white/20 p-7 sm:p-9 shadow-[0_25px_70px_rgba(0,0,0,0.85)] text-white">
-        {/* Logo y Título */}
+        {/* Logo Blanco Protagonista */}
         <div className="flex flex-col items-center text-center mb-6">
-          <div className="w-28 h-32 sm:w-32 sm:h-36 flex items-center justify-center mb-2">
+          <div className="w-44 h-48 sm:w-52 sm:h-56 flex items-center justify-center mb-3">
             <HaciendaLogo theme="dark" className="w-full h-full" />
           </div>
 
-          <h1 className="text-3xl sm:text-4xl font-anton tracking-wider uppercase text-white">
-            La Hacienda
-          </h1>
-
-          <div className="flex items-center gap-2 mt-2 text-xs sm:text-sm font-medium text-neutral-300">
+          <div className="flex items-center gap-2 mt-1 text-xs sm:text-sm font-medium text-neutral-300">
             <span>Adulto $280</span>
             <span className="text-neutral-600">•</span>
             <span>Niño $180</span>

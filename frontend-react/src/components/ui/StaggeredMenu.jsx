@@ -438,28 +438,17 @@ export const StaggeredMenu = ({
           }}
         >
           <HaciendaLogo
-            variant="emblem"
-            theme={isScrolled ? 'light' : 'dark'}
-            className="w-11 h-12 sm:w-12 sm:h-14"
+            theme="dark"
+            className="w-16 h-16 sm:w-20 sm:h-20"
           />
-          <span
-            className={`font-anton text-2xl sm:text-3xl tracking-wider uppercase ${
-              isScrolled ? 'text-black' : 'text-white'
-            }`}
-          >
+          <span className="font-anton text-2xl sm:text-3xl tracking-wider uppercase text-white">
             La Hacienda
           </span>
         </div>
 
         {/* Telemetría rápida + Botón Oficial StaggeredMenu */}
         <div className="flex items-center gap-2 sm:gap-3">
-          <div
-            className={`hidden lg:flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono ${
-              isScrolled
-                ? 'bg-neutral-100 text-black border border-neutral-200'
-                : 'bg-white/10 text-white border border-white/15'
-            }`}
-          >
+          <div className="hidden lg:flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono bg-white/10 text-white border border-white/15">
             <Clock className="w-3.5 h-3.5" />
             <span>
               {currentTime.toLocaleTimeString('es-MX', {
@@ -469,16 +458,10 @@ export const StaggeredMenu = ({
             </span>
           </div>
 
-          <div
-            className={`hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-sans font-bold ${
-              isScrolled
-                ? 'bg-neutral-100 text-black border border-neutral-200'
-                : 'bg-white/10 text-white border border-white/15'
-            }`}
-          >
+          <div className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-sans font-bold bg-white/10 text-white border border-white/15">
             <PlugConnectedIcon
               size={14}
-              className={isScrolled ? 'text-black shrink-0' : 'text-white shrink-0'}
+              className="text-white shrink-0"
             />
             <span>
               {mesasActivasCount} Activas · ${(corte?.granTotalCobrado || 0).toFixed(0)}
@@ -490,11 +473,7 @@ export const StaggeredMenu = ({
               type="button"
               onClick={onLogout}
               title={`Cerrar sesión de ${user.nombre}`}
-              className={`hidden md:flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-sans font-bold transition cursor-pointer ${
-                isScrolled
-                  ? 'bg-neutral-100 hover:bg-black hover:text-white text-black border border-neutral-200'
-                  : 'bg-white/10 hover:bg-white hover:text-black text-white'
-              }`}
+              className="hidden md:flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-sans font-bold transition cursor-pointer bg-white/10 hover:bg-white hover:text-black text-white"
             >
               <span>{user.username}</span>
               <LogOut className="w-3.5 h-3.5" />
@@ -537,13 +516,14 @@ export const StaggeredMenu = ({
       >
         <div className="sm-panel-inner">
           <div className="pb-3 border-b border-neutral-200 flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2.5">
-              <HaciendaLogo
-                variant="emblem"
-                theme="light"
-                className="w-9 h-10"
-              />
-              <span className="text-base font-anton uppercase tracking-wider text-black">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-2xl bg-black flex items-center justify-center">
+                <HaciendaLogo
+                  theme="dark"
+                  className="w-11 h-12"
+                />
+              </div>
+              <span className="text-lg font-anton uppercase tracking-wider text-black">
                 La Hacienda
               </span>
             </div>

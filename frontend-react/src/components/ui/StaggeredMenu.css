@@ -39,7 +39,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 76px;
+  height: 84px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -47,16 +47,16 @@
   background: rgba(0, 0, 0, 0.94);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
   pointer-events: auto;
   z-index: 25;
   transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .staggered-menu-header.is-scrolled {
-  background: rgba(255, 255, 255, 0.96);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  background: rgba(0, 0, 0, 0.98);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.65);
 }
 
 .staggered-menu-header > * {
@@ -66,7 +66,7 @@
 .sm-logo {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.85rem;
   user-select: none;
   cursor: pointer;
 }
@@ -85,7 +85,7 @@
   gap: 0.55rem;
   background: #ffffff;
   color: #000000 !important;
-  border: 1.5px solid #000000;
+  border: 1.5px solid #ffffff;
   border-radius: 9999px;
   padding: 0.6rem 1.15rem;
   cursor: pointer;
@@ -101,9 +101,9 @@
 }
 
 .staggered-menu-header.is-scrolled .sm-toggle {
-  background: #000000;
-  color: #ffffff !important;
-  border-color: #000000;
+  background: #ffffff;
+  color: #000000 !important;
+  border-color: #ffffff;
 }
 
 .staggered-menu-wrapper[data-open='true'] .sm-toggle {

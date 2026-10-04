@@ -1,10 +1,11 @@
 import React from 'react';
-import { Utensils, Users } from 'lucide-react';
+import { Users } from 'lucide-react';
 import { CurrencyDollarIcon } from './icons/currency-dollar-icon';
 import { useRestaurant, PRECIO_ADULTO, PRECIO_NINO } from '../context/RestaurantContext';
 import { CardContainer, CardBody, CardItem } from './ui/3d-card';
 import { AnimeCounter } from './ui/anime-counter';
 import { AnimeCardSheen } from './ui/anime-card-sheen';
+import { HaciendaLogo } from './ui/HaciendaLogo';
 
 export const MesaDigitalCard = () => {
   const { selectedMesa } = useRestaurant();
@@ -25,10 +26,8 @@ export const MesaDigitalCard = () => {
             <CardBody className="relative card-hologram w-full rounded-3xl border border-neutral-800 bg-gradient-to-br from-black via-neutral-950 to-neutral-900 p-6 text-white shadow-2xl flex flex-col justify-between min-h-[190px]">
               {/* Fila Superior */}
               <CardItem translateZ="40" className="w-full flex items-center justify-between z-10">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-white text-black flex items-center justify-center shadow-sm">
-                    <Utensils className="w-5 h-5" />
-                  </div>
+                <div className="flex items-center gap-3.5">
+                  <HaciendaLogo theme="dark" className="w-12 h-14" />
                   <div>
                     <span className="font-anton text-2xl tracking-wider uppercase text-white block leading-none">
                       {selectedMesa.nombre}
