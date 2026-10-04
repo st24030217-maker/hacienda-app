@@ -163,6 +163,21 @@ export const LoginScreen = ({ onLoginSuccess }) => {
             })}
           </div>
         </div>
+
+        {/* Firma Powered by SSS.Solutions en Blanco */}
+        <div className="mt-6 pt-4 border-t border-white/15 flex items-center justify-center gap-3">
+          <span className="text-[11px] uppercase tracking-widest font-mono text-neutral-400 font-bold">
+            Powered by
+          </span>
+          <img
+            src="./sss-solutions-logo.png"
+            alt="SSS.Solutions"
+            style={{
+              filter: 'brightness(1.2) drop-shadow(0 0 10px rgba(255,255,255,0.4))',
+            }}
+            className="h-11 w-auto object-contain"
+          />
+        </div>
       </div>
     </div>
   );

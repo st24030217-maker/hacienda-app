@@ -353,9 +353,9 @@ const MainContent = () => {
         </main>
       </section>
 
-      {/* Footer Minimalista */}
-      <footer className="relative z-10 border-t border-white/15 bg-black/90 backdrop-blur-xl py-6 text-center text-xs text-neutral-400 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      {/* Footer con Logos en Blanco (La Hacienda + SSS.Solutions) */}
+      <footer className="relative z-10 border-t border-white/15 bg-black/95 backdrop-blur-xl py-8 text-center text-xs text-neutral-400 mt-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3.5">
             <HaciendaLogo
               theme="dark"
@@ -366,15 +366,17 @@ const MainContent = () => {
             </span>
           </div>
 
-          <div className="flex items-center gap-3 py-1.5 px-4 rounded-full bg-white border border-white/20">
-            <span className="text-[11px] uppercase tracking-widest font-mono text-neutral-700 font-bold">
+          <div className="flex items-center gap-4 py-3 px-6 rounded-2xl bg-neutral-950 border border-white/25 shadow-[0_0_25px_rgba(255,255,255,0.08)]">
+            <span className="text-xs uppercase tracking-widest font-mono text-neutral-300 font-bold">
               Powered by
             </span>
             <img
               src="./sss-solutions-logo.png"
-              alt="SSS Solutions"
-              style={{ maxHeight: '22px' }}
-              className="h-5 w-auto object-contain"
+              alt="SSS.Solutions"
+              style={{
+                filter: 'brightness(1.2) drop-shadow(0 0 12px rgba(255,255,255,0.4))',
+              }}
+              className="h-14 sm:h-16 w-auto object-contain"
             />
           </div>
         </div>
