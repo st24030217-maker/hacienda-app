@@ -17,6 +17,7 @@ import {
 } from '../context/RestaurantContext';
 import { WobbleCard } from './ui/wobble-card';
 import { AnimeCounter } from './ui/anime-counter';
+import { HaciendaLogo } from './ui/HaciendaLogo';
 
 export const PaymentReflectionHistory = () => {
   const {
@@ -40,11 +41,20 @@ export const PaymentReflectionHistory = () => {
         containerClassName="w-full bg-black text-white border border-neutral-800 shadow-2xl transition-colors"
         className="p-6 sm:p-8 flex flex-col justify-between"
       >
+        {/* Cabecera con Logo Blanco Oficial */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 mb-6 gap-4 border-b border-white/15">
-          <h2 className="text-2xl sm:text-3xl font-anton uppercase tracking-wider text-white flex items-center gap-2.5">
-            <History className="w-6 h-6 text-white" />
-            <span>Historial de Pagos</span>
-          </h2>
+          <div className="flex items-center gap-4">
+            <HaciendaLogo theme="dark" className="w-16 h-18 sm:w-20 sm:h-22" />
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-anton uppercase tracking-wider text-white flex items-center gap-2.5">
+                <History className="w-6 h-6 text-white" />
+                <span>Historial de Pagos y Tickets</span>
+              </h2>
+              <p className="text-xs sm:text-sm text-neutral-400 font-sans mt-0.5">
+                Adulto $280 · Niño $180 · Comprobantes 80mm
+              </p>
+            </div>
+          </div>
 
           <div className="flex items-center gap-3">
             <div className="text-right font-sans">
@@ -108,11 +118,12 @@ export const PaymentReflectionHistory = () => {
             <table className="w-full text-left text-sm font-sans">
               <thead>
                 <tr className="text-neutral-300 uppercase font-sans font-bold bg-white/10 text-xs">
-                  <th className="py-3.5 px-4">Folio</th>
+                  <th className="py-3.5 px-4">Folio / Hora</th>
                   <th className="py-3.5 px-4">Mesa</th>
-                  <th className="py-3.5 px-4">Buffet</th>
-                  <th className="py-3.5 px-4">Extras</th>
-                  <th className="py-3.5 px-4">Método</th>
+                  <th className="py-3.5 px-4">Adultos ($280)</th>
+                  <th className="py-3.5 px-4">Niños ($180)</th>
+                  <th className="py-3.5 px-4">Extras / Propina</th>
+                  <th className="py-3.5 px-4">Método / Cambio</th>
                   <th className="py-3.5 px-4 text-right">Total</th>
                   <th className="py-3.5 px-4 text-center">Ticket</th>
                 </tr>
@@ -123,7 +134,7 @@ export const PaymentReflectionHistory = () => {
                     <td className="py-3.5 px-4 font-mono">
                       <span className="font-bold text-white block">{p.folioTicket}</span>
                       <span className="text-xs text-neutral-400">
-                        {(p.fechaPago || '').replace('T', ' ').substring(11, 16)}
+                        {(p.fechaPago || '').replace('T', ' ').substring(0, 16)}
                       </span>
                     </td>
                     <td className="py-3.5 px-4">
@@ -134,15 +145,28 @@ export const PaymentReflectionHistory = () => {
                         {p.mesaCapacidad} pers.
                       </span>
                     </td>
-                    <td className="py-3.5 px-4 text-neutral-200">
-                      {p.cantAdultos} Ad. · {p.cantNinos} Niños
+                    <td className="py-3.5 px-4 font-mono text-neutral-200">
+                      {p.cantAdultos} × $280 ={' '}
+                      <strong className="text-white">
+                        ${(p.cantAdultos * PRECIO_ADULTO).toFixed(2)}
+                      </strong>
                     </td>
-                    <td className="py-3.5 px-4 font-mono text-neutral-300">
-                      ${Number(p.subtotalExtras || 0).toFixed(2)}
+                    <td className="py-3.5 px-4 font-mono text-neutral-200">
+                      {p.cantNinos} × $180 ={' '}
+                      <strong className="text-white">
+                        ${(p.cantNinos * PRECIO_NINO).toFixed(2)}
+                      </strong>
+                    </td>
+                    <td className="py-3.5 px-4 font-mono text-xs text-neutral-300">
+                      <div>Extras: ${Number(p.subtotalExtras || 0).toFixed(2)}</div>
+                      <div>Propina: ${Number(p.propina || 0).toFixed(2)}</div>
                     </td>
                     <td className="py-3.5 px-4">
-                      <span className="text-xs text-black bg-white px-2.5 py-1 rounded-lg font-bold inline-block">
+                      <span className="text-xs text-black bg-white px-2.5 py-0.5 rounded-lg font-bold inline-block">
                         {p.metodoPago}
+                      </span>
+                      <span className="block text-xs font-mono text-neutral-400 mt-1">
+                        Cambio: ${Number(p.cambio || 0).toFixed(2)}
                       </span>
                     </td>
                     <td className="py-3.5 px-4 text-right font-anton text-lg tracking-wide text-white">
@@ -155,7 +179,7 @@ export const PaymentReflectionHistory = () => {
                         className="px-3.5 py-1.5 rounded-xl bg-white hover:bg-neutral-200 text-black transition text-xs font-sans font-bold inline-flex items-center gap-1.5 cursor-pointer"
                       >
                         <Receipt className="w-3.5 h-3.5" />
-                        <span>Ver</span>
+                        <span>Ver Ticket</span>
                       </button>
                     </td>
                   </tr>
@@ -166,7 +190,7 @@ export const PaymentReflectionHistory = () => {
         )}
       </WobbleCard>
 
-      {/* Modal de Ticket 80mm */}
+      {/* Modal de Comprobante / Ticket Imprimible 80mm con Logo Blanco */}
       {selectedTicket && (
         <div
           role="dialog"
@@ -177,36 +201,35 @@ export const PaymentReflectionHistory = () => {
             <button
               type="button"
               onClick={() => setSelectedTicket(null)}
-              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-neutral-100 hover:bg-black hover:text-white flex items-center justify-center text-black transition cursor-pointer"
+              className="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-white/20 hover:bg-white text-white hover:text-black flex items-center justify-center transition cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
 
-            <div className="text-center border-b border-dashed border-neutral-400 pb-4 mb-4">
-              <img
-                src="./hacienda-logo-black.png"
-                alt="La Hacienda Restaurante"
-                className="w-16 h-18 object-contain mx-auto mb-2"
+            {/* Encabezado Negro del Ticket para que el Logo Blanco resalte */}
+            <div className="bg-black text-white rounded-2xl p-5 text-center mb-4">
+              <HaciendaLogo
+                theme="dark"
+                className="w-28 h-32 mx-auto mb-2"
               />
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-black text-white text-[10px] font-mono font-bold mb-2">
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white text-black text-[10px] font-mono font-bold mb-1.5">
                 <CheckCircle2 className="w-3 h-3" />
-                <span>PAGADO</span>
+                <span>PAGO REFLEJADO</span>
               </span>
-              <h3 className="text-2xl font-anton uppercase tracking-wider text-black">
-                La Hacienda
-              </h3>
-              <p className="text-xs text-neutral-600 font-mono">
-                {selectedTicket.folioTicket} · MESA {selectedTicket.mesaNumero}
+              <p className="text-xs text-neutral-300 font-mono mt-1">
+                {selectedTicket.folioTicket} · MESA #{selectedTicket.mesaNumero} (
+                {selectedTicket.mesaCapacidad} PERS.)
               </p>
-              <p className="text-xs text-neutral-500 font-mono mt-0.5">
-                {(selectedTicket.fechaPago || '').replace('T', ' ').substring(0, 16)}
+              <p className="text-[11px] text-neutral-400 font-mono mt-0.5">
+                {(selectedTicket.fechaPago || '').replace('T', ' ').substring(0, 19)} · Cajero:{' '}
+                {selectedTicket.cajero}
               </p>
             </div>
 
             <div className="space-y-2 text-xs font-mono border-b border-dashed border-neutral-400 pb-4 mb-4">
               {selectedTicket.cantAdultos > 0 && (
                 <div className="flex justify-between">
-                  <span>{selectedTicket.cantAdultos}x Buffet Adulto ($280)</span>
+                  <span>{selectedTicket.cantAdultos}x Buffet Adulto ($280.00)</span>
                   <span className="font-bold">
                     ${(selectedTicket.cantAdultos * PRECIO_ADULTO).toFixed(2)}
                   </span>
@@ -214,7 +237,7 @@ export const PaymentReflectionHistory = () => {
               )}
               {selectedTicket.cantNinos > 0 && (
                 <div className="flex justify-between">
-                  <span>{selectedTicket.cantNinos}x Buffet Niño ($180)</span>
+                  <span>{selectedTicket.cantNinos}x Buffet Niño ($180.00)</span>
                   <span className="font-bold">
                     ${(selectedTicket.cantNinos * PRECIO_NINO).toFixed(2)}
                   </span>
@@ -231,6 +254,14 @@ export const PaymentReflectionHistory = () => {
             </div>
 
             <div className="space-y-1.5 text-xs font-mono border-b border-dashed border-neutral-400 pb-4 mb-4">
+              <div className="flex justify-between text-neutral-600">
+                <span>Subtotal Buffet:</span>
+                <span>${Number(selectedTicket.subtotalBuffet || 0).toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between text-neutral-600">
+                <span>Subtotal Extras:</span>
+                <span>${Number(selectedTicket.subtotalExtras || 0).toFixed(2)}</span>
+              </div>
               {selectedTicket.descuento > 0 && (
                 <div className="flex justify-between text-black font-bold">
                   <span>Descuento:</span>
@@ -243,22 +274,48 @@ export const PaymentReflectionHistory = () => {
                   <span>${Number(selectedTicket.propina).toFixed(2)}</span>
                 </div>
               )}
-              <div className="flex justify-between text-lg font-black text-black pt-1">
-                <span>TOTAL:</span>
-                <span>${Number(selectedTicket.montoTotal || 0).toFixed(2)}</span>
+              <div className="flex justify-between text-base font-black text-black pt-2">
+                <span>TOTAL PAGADO:</span>
+                <span>${Number(selectedTicket.montoTotal || 0).toFixed(2)} MXN</span>
               </div>
               <div className="flex justify-between text-neutral-600 pt-1">
-                <span>Método:</span>
+                <span>Método de Pago:</span>
                 <span className="font-bold text-black">{selectedTicket.metodoPago}</span>
               </div>
               <div className="flex justify-between text-neutral-600">
-                <span>Recibido:</span>
+                <span>Monto Recibido:</span>
                 <span>${Number(selectedTicket.montoRecibido || 0).toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-black font-bold">
-                <span>Cambio:</span>
+                <span>Cambio Entregado:</span>
                 <span>${Number(selectedTicket.cambio || 0).toFixed(2)}</span>
               </div>
+            </div>
+
+            {/* Sello Digital QR */}
+            <div className="flex items-center justify-between bg-neutral-100 border border-neutral-200 p-3 rounded-2xl mb-5">
+              <div className="text-[11px] font-sans text-neutral-700">
+                <strong className="text-black block font-mono">
+                  SELLO DIGITAL VERIFICADO
+                </strong>
+                <span>La Hacienda Buffet · $280 / $180</span>
+              </div>
+              <svg className="w-14 h-14 shrink-0" viewBox="0 0 100 100">
+                <rect width="100" height="100" fill="#FFFFFF" />
+                <rect x="8" y="8" width="24" height="24" fill="#000" />
+                <rect x="12" y="12" width="16" height="16" fill="#FFFFFF" />
+                <rect x="16" y="16" width="8" height="8" fill="#000" />
+                <rect x="68" y="8" width="24" height="24" fill="#000" />
+                <rect x="72" y="12" width="16" height="16" fill="#FFFFFF" />
+                <rect x="76" y="16" width="8" height="8" fill="#000" />
+                <rect x="8" y="68" width="24" height="24" fill="#000" />
+                <rect x="12" y="72" width="16" height="16" fill="#FFFFFF" />
+                <rect x="16" y="76" width="8" height="8" fill="#000" />
+                <rect x="42" y="42" width="16" height="16" fill="#000" />
+                <rect x="44" y="16" width="10" height="10" fill="#000" />
+                <rect x="66" y="50" width="12" height="12" fill="#000" />
+                <rect x="46" y="72" width="14" height="14" fill="#000" />
+              </svg>
             </div>
 
             <div className="flex gap-2.5">
@@ -268,7 +325,7 @@ export const PaymentReflectionHistory = () => {
                 className="flex-1 py-3 rounded-xl bg-black hover:bg-neutral-800 text-white text-xs font-bold flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Printer className="w-4 h-4" />
-                <span>Imprimir</span>
+                <span>Imprimir Ticket 80mm</span>
               </button>
               <button
                 type="button"

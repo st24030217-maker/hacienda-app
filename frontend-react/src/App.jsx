@@ -237,15 +237,18 @@ const MainContent = () => {
       icon: LayoutGrid,
       badge: '23',
       content: (
-        <AnimeStaggerGroup triggerKey={activeTab}>
+        <AnimeStaggerGroup triggerKey={activeTab} className="space-y-8">
           <div className="anime-stagger-card">
             <BuffetPosWorkspace />
+          </div>
+          <div className="anime-stagger-card">
+            <PaymentReflectionHistory />
           </div>
         </AnimeStaggerGroup>
       ),
     },
     {
-      title: 'Pagos',
+      title: 'Pagos y Tickets',
       value: 'history',
       icon: Receipt,
       badge: `${corte?.totalPagosRegistrados || 0}`,
