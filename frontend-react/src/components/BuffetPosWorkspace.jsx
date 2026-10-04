@@ -42,7 +42,6 @@ export const BuffetPosWorkspace = () => {
     cambiarCapacidadMesa,
   } = useRestaurant();
 
-  // Vista activa: 'plano' (Mapa Arquitectónico Interactivo) o 'grid' (Cuadrícula de Tarjetas)
   const [vistaMapa, setVistaMapa] = useState('plano');
 
   // Estado para abrir mesa libre
@@ -169,10 +168,9 @@ export const BuffetPosWorkspace = () => {
   const total10 = mesas.filter((m) => m.capacidad === 10).length;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-      {/* COLUMNA IZQUIERDA (7 COLS): PLANO ARQUITECTÓNICO INTERACTIVO + VISTA DE CUADRÍCULA */}
-      <div className="lg:col-span-7 space-y-5">
-        {/* Selector de Modo de Visualización en Blanco y Negro */}
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      {/* COLUMNA IZQUIERDA (7 COLS): PLANO / TARJETAS */}
+      <div className="lg:col-span-7 space-y-4">
         <div className="p-2 rounded-2xl bg-white border border-neutral-300 shadow-sm flex items-center justify-between gap-2">
           <div className="flex items-center gap-1.5 w-full sm:w-auto">
             <button
@@ -181,14 +179,14 @@ export const BuffetPosWorkspace = () => {
                 triggerHaptic();
                 setVistaMapa('plano');
               }}
-              className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-sans font-bold flex items-center justify-center gap-2 transition cursor-pointer ${
+              className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-sm font-sans font-bold flex items-center justify-center gap-2 transition cursor-pointer ${
                 vistaMapa === 'plano'
                   ? 'bg-black text-white shadow-sm'
                   : 'text-black hover:bg-neutral-100'
               }`}
             >
-              <Map className="w-3.5 h-3.5" />
-              <span>Plano Arquitectónico Interactivo (23 Mesas)</span>
+              <Map className="w-4 h-4" />
+              <span>Plano (23)</span>
             </button>
             <button
               type="button"
@@ -196,48 +194,42 @@ export const BuffetPosWorkspace = () => {
                 triggerHaptic();
                 setVistaMapa('grid');
               }}
-              className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-sans font-bold flex items-center justify-center gap-2 transition cursor-pointer ${
+              className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-sm font-sans font-bold flex items-center justify-center gap-2 transition cursor-pointer ${
                 vistaMapa === 'grid'
                   ? 'bg-black text-white shadow-sm'
                   : 'text-black hover:bg-neutral-100'
               }`}
             >
-              <LayoutGrid className="w-3.5 h-3.5" />
-              <span>Vista de Tarjetas ({mesas.length})</span>
+              <LayoutGrid className="w-4 h-4" />
+              <span>Tarjetas</span>
             </button>
           </div>
 
-          <span className="hidden xl:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-100 border border-neutral-200 text-[10px] font-mono font-bold text-black uppercase">
-            <span>{total4} de 4p</span>
+          <span className="hidden xl:inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-neutral-100 border border-neutral-200 text-xs font-mono font-bold text-black">
+            <span>4p: {total4}</span>
             <span>·</span>
-            <span>{total6} de 6p</span>
+            <span>6p: {total6}</span>
             <span>·</span>
-            <span>{total10} de 10p</span>
+            <span>10p: {total10}</span>
           </span>
         </div>
 
         {vistaMapa === 'plano' ? (
           <HaciendaFloorPlanMap />
         ) : (
-          <div className="p-6 sm:p-7 rounded-3xl bg-white shadow-xl shadow-neutral-200/50 border border-neutral-200">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-neutral-200">
-              <div>
-                <div className="flex items-center gap-2 text-[11px] font-mono text-neutral-500 uppercase tracking-widest font-bold">
-                  <LayoutGrid className="w-3.5 h-3.5 text-black" />
-                  <span>CUADRÍCULA DE PISO EN TIEMPO REAL</span>
-                </div>
-                <h3 className="text-xl sm:text-2xl font-black text-black tracking-tight mt-0.5">
-                  Tarjetas de Mesas (4, 6 y 10 Personas)
-                </h3>
-              </div>
+          <div className="p-6 rounded-3xl bg-white shadow-xl border border-neutral-200">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-neutral-200 mb-5">
+              <h3 className="text-2xl font-anton uppercase tracking-wider text-black">
+                Mesas ({mesasFiltradas.length})
+              </h3>
 
               {/* Filtros de Capacidad */}
               <div className="flex items-center gap-1.5 flex-wrap">
                 {[
                   { cap: 0, label: `Todas (${mesas.length})` },
-                  { cap: 4, label: `4 Pers. (${total4})` },
-                  { cap: 6, label: `6 Pers. (${total6})` },
-                  { cap: 10, label: `10 Pers. (${total10})` },
+                  { cap: 4, label: `4p (${total4})` },
+                  { cap: 6, label: `6p (${total6})` },
+                  { cap: 10, label: `10p (${total10})` },
                 ].map((f) => (
                   <button
                     key={f.cap}
@@ -246,7 +238,7 @@ export const BuffetPosWorkspace = () => {
                       triggerHaptic();
                       setFiltroCapacidad(f.cap);
                     }}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition cursor-pointer ${
+                    className={`px-3 py-1.5 rounded-xl text-xs font-sans font-bold transition cursor-pointer ${
                       filtroCapacidad === f.cap
                         ? 'bg-black text-white shadow-sm'
                         : 'bg-neutral-100 text-black hover:bg-neutral-200 border border-neutral-200'
@@ -258,23 +250,7 @@ export const BuffetPosWorkspace = () => {
               </div>
             </div>
 
-            {/* Leyenda de Estados en Blanco y Negro */}
-            <div className="flex items-center gap-5 py-3 text-xs font-sans text-black border-b border-neutral-200 mb-5">
-              <span className="inline-flex items-center gap-1.5 font-semibold">
-                <span className="w-2.5 h-2.5 rounded-full bg-white border-2 border-black" />
-                <span>Libre (Blanco)</span>
-              </span>
-              <span className="inline-flex items-center gap-1.5 font-semibold">
-                <span className="w-2.5 h-2.5 rounded-full bg-black" />
-                <span>Ocupada / En Consumo (Negro)</span>
-              </span>
-              <span className="inline-flex items-center gap-1.5 font-semibold">
-                <span className="w-2.5 h-2.5 rounded-full bg-neutral-700 animate-pulse" />
-                <span>Por Pagar</span>
-              </span>
-            </div>
-
-            {/* Grid de Mesas en Blanco y Negro */}
+            {/* Grid de Mesas */}
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3.5">
               {mesasFiltradas.map((m) => {
                 const isSelected = selectedMesa?.id === m.id;
@@ -299,34 +275,32 @@ export const BuffetPosWorkspace = () => {
                     }`}
                   >
                     <div>
-                      <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center justify-between mb-1.5">
                         <span
-                          className={`text-base font-black font-sans ${
+                          className={`text-lg font-anton tracking-wide uppercase ${
                             isSelected || !isFree ? 'text-white' : 'text-black'
                           }`}
                         >
                           {m.nombre}
                         </span>
                         <span
-                          className={`text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full ${
+                          className={`text-xs font-mono font-bold px-2.5 py-0.5 rounded-full ${
                             isSelected || !isFree
                               ? 'bg-white text-black'
                               : 'bg-black text-white'
                           }`}
                         >
-                          {m.capacidad} PERS.
+                          {m.capacidad}p
                         </span>
                       </div>
 
                       <div
-                        className={`flex items-center justify-between text-[11px] mb-3 ${
+                        className={`flex items-center justify-between text-xs mb-3 ${
                           isSelected || !isFree ? 'text-neutral-300' : 'text-neutral-500'
                         }`}
                       >
                         <span>{m.zona}</span>
-                        <span className="font-mono font-bold uppercase">
-                          {m.estado}
-                        </span>
+                        <span className="font-bold uppercase">{m.estado}</span>
                       </div>
                     </div>
 
@@ -338,21 +312,17 @@ export const BuffetPosWorkspace = () => {
                             : 'border-neutral-100 text-black'
                         }`}
                       >
-                        <span>Disponible para abrir</span>
+                        <span>Libre</span>
                         <Users className="w-3.5 h-3.5" />
                       </div>
                     ) : (
-                      <div className="pt-2.5 border-t border-neutral-800 space-y-1">
-                        <div className="flex items-center justify-between text-[11px] font-mono text-neutral-300">
-                          <span>{ord.cantAdultos} Adultos · {ord.cantNinos} Niños</span>
-                          <span>{ord.folio}</span>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <span className="text-[10px] text-neutral-400">Total actual</span>
-                          <span className="text-sm font-black font-mono text-white">
-                            ${Number(ord.total || 0).toFixed(2)}
-                          </span>
-                        </div>
+                      <div className="pt-2.5 border-t border-neutral-800 flex items-center justify-between">
+                        <span className="text-xs text-neutral-300">
+                          {ord.cantAdultos} Ad. · {ord.cantNinos} Niños
+                        </span>
+                        <span className="text-base font-anton tracking-wide text-white">
+                          ${Number(ord.total || 0).toFixed(2)}
+                        </span>
                       </div>
                     )}
                   </div>
@@ -363,22 +333,16 @@ export const BuffetPosWorkspace = () => {
         )}
       </div>
 
-      {/* COLUMNA DERECHA (5 COLS): TARJETA 3D + CONFIGURADOR DE CAPACIDAD + CALCULADORA BUFFET + COBRO */}
-      <div className="lg:col-span-5 space-y-5">
-        {/* Tarjeta 3D Monocromática de la Mesa Seleccionada */}
+      {/* COLUMNA DERECHA (5 COLS): TARJETA + CUENTA */}
+      <div className="lg:col-span-5 space-y-4">
         <MesaDigitalCard />
 
-        {/* Configurador Rápido de Capacidad de la Mesa Seleccionada (4, 6 o 10 Personas) */}
+        {/* Selector de Capacidad Compacto */}
         {selectedMesa && (
-          <div className="p-4 rounded-2xl bg-white border border-neutral-300 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 font-bold block">
-                CAPACIDAD DE {selectedMesa.nombre.toUpperCase()} ({selectedMesa.zona})
-              </span>
-              <span className="text-xs font-bold text-black">
-                Configurar lugares disponibles en el plano:
-              </span>
-            </div>
+          <div className="px-4 py-3 rounded-2xl bg-white border border-neutral-300 shadow-sm flex items-center justify-between gap-3">
+            <span className="text-sm font-bold text-black">
+              Capacidad ({selectedMesa.nombre}):
+            </span>
             <div className="flex items-center gap-1.5">
               {[4, 6, 10].map((cap) => (
                 <button
@@ -388,60 +352,55 @@ export const BuffetPosWorkspace = () => {
                     triggerHaptic();
                     cambiarCapacidadMesa(selectedMesa.id, cap);
                   }}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition cursor-pointer ${
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-sans font-bold transition cursor-pointer ${
                     selectedMesa.capacidad === cap
                       ? 'bg-black text-white shadow-sm'
                       : 'bg-neutral-100 text-black hover:bg-neutral-200 border border-neutral-300'
                   }`}
                 >
-                  {cap} Pers.
+                  {cap}p
                 </button>
               ))}
             </div>
           </div>
         )}
 
-        {/* Panel de Apertura o Calculadora y Cobro */}
+        {/* Panel de Apertura o Cobro */}
         {selectedMesa && (selectedMesa.estado === 'Libre' || !ordenActiva) ? (
           <form
             onSubmit={handleAbrirMesa}
-            className="p-6 rounded-3xl bg-white shadow-xl shadow-neutral-200/50 border border-neutral-200 space-y-5"
+            className="p-6 rounded-3xl bg-white shadow-xl border border-neutral-200 space-y-4"
           >
-            <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-black font-bold">
-                APERTURA DE MESA · CAPACIDAD {selectedMesa.capacidad} PERSONAS · {selectedMesa.zona.toUpperCase()}
-              </span>
-              <h3 className="text-xl font-black text-black mt-0.5">
-                Asignar Comensales de Buffet
+            <div className="flex items-center justify-between">
+              <h3 className="text-2xl font-anton uppercase tracking-wider text-black">
+                Abrir {selectedMesa.nombre}
               </h3>
-              <p className="text-xs text-neutral-500 mt-0.5">
-                Selecciona la cantidad de adultos ($280.00) y niños ($180.00) que ocuparán la {selectedMesa.nombre}.
-              </p>
+              <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-neutral-100 border border-neutral-300 text-black">
+                {totalPersonasAbierto} / {selectedMesa.capacidad} pers.
+              </span>
             </div>
 
             {/* Contador Adultos ($280) */}
             <div className="p-4 rounded-2xl bg-neutral-50 border border-neutral-200 flex items-center justify-between">
               <div>
-                <span className="text-sm font-black text-black block">Buffet Adulto</span>
-                <span className="text-xs font-mono text-neutral-500">
-                  $280.00 MXN por persona
-                </span>
+                <span className="text-base font-black text-black block">Adultos</span>
+                <span className="text-xs font-mono text-neutral-500">$280.00 c/u</span>
               </div>
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-3">
                 <button
                   type="button"
                   onClick={() => setOpenAdultos(Math.max(0, openAdultos - 1))}
-                  className="w-9 h-9 rounded-xl bg-white border border-neutral-300 hover:bg-black hover:text-white flex items-center justify-center transition cursor-pointer"
+                  className="w-10 h-10 rounded-xl bg-white border border-neutral-300 hover:bg-black hover:text-white flex items-center justify-center transition cursor-pointer"
                 >
                   <Minus className="w-4 h-4" />
                 </button>
-                <span className="w-8 text-center font-mono font-black text-base text-black">
+                <span className="w-8 text-center font-anton text-xl text-black">
                   {openAdultos}
                 </span>
                 <button
                   type="button"
                   onClick={() => setOpenAdultos(openAdultos + 1)}
-                  className="w-9 h-9 rounded-xl bg-white border border-neutral-300 hover:bg-black hover:text-white flex items-center justify-center transition cursor-pointer"
+                  className="w-10 h-10 rounded-xl bg-white border border-neutral-300 hover:bg-black hover:text-white flex items-center justify-center transition cursor-pointer"
                 >
                   <Plus className="w-4 h-4" />
                 </button>
@@ -451,101 +410,85 @@ export const BuffetPosWorkspace = () => {
             {/* Contador Niños ($180) */}
             <div className="p-4 rounded-2xl bg-neutral-50 border border-neutral-200 flex items-center justify-between">
               <div>
-                <span className="text-sm font-black text-black block">Buffet Niño</span>
-                <span className="text-xs font-mono text-neutral-500">
-                  $180.00 MXN por niño
-                </span>
+                <span className="text-base font-black text-black block">Niños</span>
+                <span className="text-xs font-mono text-neutral-500">$180.00 c/u</span>
               </div>
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-3">
                 <button
                   type="button"
                   onClick={() => setOpenNinos(Math.max(0, openNinos - 1))}
-                  className="w-9 h-9 rounded-xl bg-white border border-neutral-300 hover:bg-black hover:text-white flex items-center justify-center transition cursor-pointer"
+                  className="w-10 h-10 rounded-xl bg-white border border-neutral-300 hover:bg-black hover:text-white flex items-center justify-center transition cursor-pointer"
                 >
                   <Minus className="w-4 h-4" />
                 </button>
-                <span className="w-8 text-center font-mono font-black text-base text-black">
+                <span className="w-8 text-center font-anton text-xl text-black">
                   {openNinos}
                 </span>
                 <button
                   type="button"
                   onClick={() => setOpenNinos(openNinos + 1)}
-                  className="w-9 h-9 rounded-xl bg-white border border-neutral-300 hover:bg-black hover:text-white flex items-center justify-center transition cursor-pointer"
+                  className="w-10 h-10 rounded-xl bg-white border border-neutral-300 hover:bg-black hover:text-white flex items-center justify-center transition cursor-pointer"
                 >
                   <Plus className="w-4 h-4" />
                 </button>
               </div>
             </div>
 
-            {/* Indicador de Capacidad */}
-            <div
-              className={`px-4 py-2.5 rounded-xl text-xs font-mono font-bold flex items-center justify-between ${
-                totalPersonasAbierto > selectedMesa.capacidad
-                  ? 'bg-black text-white'
-                  : 'bg-neutral-100 text-black border border-neutral-200'
-              }`}
-            >
-              <span>Ocupación proyectada:</span>
-              <span>
-                {totalPersonasAbierto} / {selectedMesa.capacidad} personas
-              </span>
-            </div>
-
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-[11px] font-mono uppercase text-neutral-500 font-bold mb-1">
-                  Mesero Asignado
+                <label className="block text-xs uppercase text-neutral-500 font-bold mb-1">
+                  Mesero
                 </label>
                 <input
                   type="text"
                   value={openMesero}
                   onChange={(e) => setOpenMesero(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl border border-neutral-300 text-xs font-sans focus:outline-none focus:ring-2 focus:ring-black"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 text-sm font-sans focus:outline-none focus:ring-2 focus:ring-black"
                 />
               </div>
               <div>
-                <label className="block text-[11px] font-mono uppercase text-neutral-500 font-bold mb-1">
-                  Notas de Mesa
+                <label className="block text-xs uppercase text-neutral-500 font-bold mb-1">
+                  Notas
                 </label>
                 <input
                   type="text"
                   value={openNotas}
                   onChange={(e) => setOpenNotas(e.target.value)}
-                  placeholder="Ej. Área familiar, cumpleaños"
-                  className="w-full px-3.5 py-2 rounded-xl border border-neutral-300 text-xs font-sans focus:outline-none focus:ring-2 focus:ring-black"
+                  placeholder="Opcional"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 text-sm font-sans focus:outline-none focus:ring-2 focus:ring-black"
                 />
               </div>
             </div>
 
             <div className="p-4 rounded-2xl bg-black text-white flex items-center justify-between">
-              <span className="text-xs font-mono uppercase tracking-wider text-neutral-300">
-                Subtotal Buffet Inicial
+              <span className="text-sm font-bold uppercase tracking-wider text-neutral-300">
+                Total Buffet
               </span>
-              <span className="text-xl font-black font-mono text-white flex items-center gap-0.5">
-                <CurrencyDollarIcon size={18} className="text-white" />
+              <span className="text-2xl font-anton tracking-wide text-white flex items-center gap-0.5">
+                <CurrencyDollarIcon size={20} className="text-white" />
                 <AnimeCounter value={subtotalAbierto} decimals={2} duration={350} />
               </span>
             </div>
 
             <button
               type="submit"
-              className="w-full py-3.5 rounded-2xl bg-black hover:bg-neutral-800 text-white font-sans font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition cursor-pointer"
+              className="w-full py-3.5 rounded-2xl bg-black hover:bg-neutral-800 text-white font-sans font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition cursor-pointer"
             >
               <CheckCircle2 className="w-4 h-4" />
-              <span>Abrir {selectedMesa.nombre} y Registrar Buffet</span>
+              <span>Abrir Mesa</span>
             </button>
           </form>
         ) : (
           ordenActiva && (
-            <div className="p-6 rounded-3xl bg-white shadow-xl shadow-neutral-200/50 border border-neutral-200 space-y-6">
-              {/* 1. Contadores de Buffet en Vivo */}
+            <div className="p-6 rounded-3xl bg-white shadow-xl border border-neutral-200 space-y-5">
+              {/* 1. Buffet */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono uppercase tracking-wider font-bold text-black flex items-center gap-1.5">
-                    <Utensils className="w-3.5 h-3.5 text-black" />
-                    <span>1. Desglose de Buffet ($280 / $180)</span>
+                  <span className="text-sm uppercase tracking-wider font-bold text-black flex items-center gap-1.5">
+                    <Utensils className="w-4 h-4 text-black" />
+                    <span>Buffet</span>
                   </span>
-                  <span className="text-sm font-mono font-black text-black">
+                  <span className="text-base font-anton tracking-wide text-black">
                     ${Number(ordenActiva.subtotalBuffet || 0).toFixed(2)}
                   </span>
                 </div>
@@ -553,26 +496,24 @@ export const BuffetPosWorkspace = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="p-3.5 rounded-2xl bg-neutral-50 border border-neutral-200 flex items-center justify-between">
                     <div>
-                      <span className="text-xs font-bold text-black block">Adultos ($280)</span>
-                      <span className="text-[11px] font-mono text-neutral-500">
-                        ${(ordenActiva.cantAdultos * PRECIO_ADULTO).toFixed(2)}
-                      </span>
+                      <span className="text-sm font-bold text-black block">Adultos</span>
+                      <span className="text-xs font-mono text-neutral-500">$280 c/u</span>
                     </div>
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-2">
                       <button
                         type="button"
                         onClick={() => handleAdjustBuffetActivo('adultos', -1)}
-                        className="w-7 h-7 rounded-lg bg-white border border-neutral-300 hover:bg-black hover:text-white flex items-center justify-center cursor-pointer"
+                        className="w-8 h-8 rounded-lg bg-white border border-neutral-300 hover:bg-black hover:text-white flex items-center justify-center cursor-pointer"
                       >
                         <Minus className="w-3.5 h-3.5" />
                       </button>
-                      <span className="w-6 text-center font-mono font-black text-sm">
+                      <span className="w-6 text-center font-anton text-lg">
                         {ordenActiva.cantAdultos}
                       </span>
                       <button
                         type="button"
                         onClick={() => handleAdjustBuffetActivo('adultos', 1)}
-                        className="w-7 h-7 rounded-lg bg-white border border-neutral-300 hover:bg-black hover:text-white flex items-center justify-center cursor-pointer"
+                        className="w-8 h-8 rounded-lg bg-white border border-neutral-300 hover:bg-black hover:text-white flex items-center justify-center cursor-pointer"
                       >
                         <Plus className="w-3.5 h-3.5" />
                       </button>
@@ -581,26 +522,24 @@ export const BuffetPosWorkspace = () => {
 
                   <div className="p-3.5 rounded-2xl bg-neutral-50 border border-neutral-200 flex items-center justify-between">
                     <div>
-                      <span className="text-xs font-bold text-black block">Niños ($180)</span>
-                      <span className="text-[11px] font-mono text-neutral-500">
-                        ${(ordenActiva.cantNinos * PRECIO_NINO).toFixed(2)}
-                      </span>
+                      <span className="text-sm font-bold text-black block">Niños</span>
+                      <span className="text-xs font-mono text-neutral-500">$180 c/u</span>
                     </div>
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-2">
                       <button
                         type="button"
                         onClick={() => handleAdjustBuffetActivo('ninos', -1)}
-                        className="w-7 h-7 rounded-lg bg-white border border-neutral-300 hover:bg-black hover:text-white flex items-center justify-center cursor-pointer"
+                        className="w-8 h-8 rounded-lg bg-white border border-neutral-300 hover:bg-black hover:text-white flex items-center justify-center cursor-pointer"
                       >
                         <Minus className="w-3.5 h-3.5" />
                       </button>
-                      <span className="w-6 text-center font-mono font-black text-sm">
+                      <span className="w-6 text-center font-anton text-lg">
                         {ordenActiva.cantNinos}
                       </span>
                       <button
                         type="button"
                         onClick={() => handleAdjustBuffetActivo('ninos', 1)}
-                        className="w-7 h-7 rounded-lg bg-white border border-neutral-300 hover:bg-black hover:text-white flex items-center justify-center cursor-pointer"
+                        className="w-8 h-8 rounded-lg bg-white border border-neutral-300 hover:bg-black hover:text-white flex items-center justify-center cursor-pointer"
                       >
                         <Plus className="w-3.5 h-3.5" />
                       </button>
@@ -609,14 +548,14 @@ export const BuffetPosWorkspace = () => {
                 </div>
               </div>
 
-              {/* 2. Consumo Extra (Bebidas y Postres) */}
+              {/* 2. Extras */}
               <div className="space-y-3 pt-4 border-t border-neutral-200">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono uppercase tracking-wider font-bold text-black flex items-center gap-1.5">
-                    <Wine className="w-3.5 h-3.5 text-black" />
-                    <span>2. Consumo Extra (Bebidas / Postres)</span>
+                  <span className="text-sm uppercase tracking-wider font-bold text-black flex items-center gap-1.5">
+                    <Wine className="w-4 h-4 text-black" />
+                    <span>Extras</span>
                   </span>
-                  <span className="text-sm font-mono font-black text-black">
+                  <span className="text-base font-anton tracking-wide text-black">
                     ${Number(ordenActiva.subtotalExtras || 0).toFixed(2)}
                   </span>
                 </div>
@@ -625,7 +564,7 @@ export const BuffetPosWorkspace = () => {
                   <select
                     value={selectedProdId}
                     onChange={(e) => setSelectedProdId(Number(e.target.value))}
-                    className="flex-1 px-3 py-2 rounded-xl border border-neutral-300 text-xs font-sans bg-white focus:outline-none focus:ring-2 focus:ring-black"
+                    className="flex-1 px-3 py-2.5 rounded-xl border border-neutral-300 text-sm font-sans bg-white focus:outline-none focus:ring-2 focus:ring-black"
                   >
                     {productosExtra.map((p) => (
                       <option key={p.id} value={p.id}>
@@ -636,9 +575,9 @@ export const BuffetPosWorkspace = () => {
                   <button
                     type="button"
                     onClick={() => modificarExtraMesa(selectedMesa.id, selectedProdId, 1)}
-                    className="px-4 py-2 rounded-xl bg-black hover:bg-neutral-800 text-white text-xs font-bold flex items-center gap-1 cursor-pointer shrink-0"
+                    className="px-4 py-2.5 rounded-xl bg-black hover:bg-neutral-800 text-white text-xs font-bold flex items-center gap-1 cursor-pointer shrink-0"
                   >
-                    <Plus className="w-3.5 h-3.5" />
+                    <Plus className="w-4 h-4" />
                     <span>Añadir</span>
                   </button>
                 </div>
@@ -650,14 +589,9 @@ export const BuffetPosWorkspace = () => {
                         key={ex.id}
                         className="px-3 py-2 rounded-xl bg-neutral-50 border border-neutral-200 flex items-center justify-between text-xs"
                       >
-                        <div>
-                          <span className="font-bold text-black">
-                            {ex.cantidad}x {ex.nombreProducto}
-                          </span>
-                          <span className="text-[11px] font-mono text-neutral-500 ml-2">
-                            (${Number(ex.precioUnitario).toFixed(2)} c/u)
-                          </span>
-                        </div>
+                        <span className="font-bold text-black">
+                          {ex.cantidad}x {ex.nombreProducto}
+                        </span>
                         <div className="flex items-center gap-1.5">
                           <span className="font-mono font-bold text-black mr-1">
                             ${Number(ex.subtotal).toFixed(2)}
@@ -683,18 +617,16 @@ export const BuffetPosWorkspace = () => {
                 )}
               </div>
 
-              {/* 3. Liquidación y Reflejo de Pago */}
+              {/* 3. Cobro */}
               <div className="space-y-4 pt-4 border-t border-neutral-200">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono uppercase tracking-wider font-bold text-black flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-black" />
-                    <span>3. Cobro y Reflejo de Pago</span>
-                  </span>
-                </div>
+                <span className="text-sm uppercase tracking-wider font-bold text-black flex items-center gap-1.5">
+                  <Sparkles className="w-4 h-4 text-black" />
+                  <span>Cobro</span>
+                </span>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-[11px] font-mono uppercase text-neutral-500 font-bold mb-1">
+                    <label className="block text-xs uppercase text-neutral-500 font-bold mb-1">
                       Propina ($)
                     </label>
                     <div className="flex gap-1">
@@ -714,19 +646,19 @@ export const BuffetPosWorkspace = () => {
                           );
                           setMontoRecibido(nuevoTotal);
                         }}
-                        className="w-full px-3 py-1.5 rounded-xl border border-neutral-300 text-xs font-mono"
+                        className="w-full px-3 py-2 rounded-xl border border-neutral-300 text-sm font-mono"
                       />
                       <button
                         type="button"
                         onClick={() => handleAplicarPropinaPct(10)}
-                        className="px-2 py-1 rounded-lg bg-neutral-100 hover:bg-black hover:text-white text-[10px] font-mono font-bold cursor-pointer border border-neutral-200"
+                        className="px-2 py-1 rounded-lg bg-neutral-100 hover:bg-black hover:text-white text-xs font-mono font-bold cursor-pointer border border-neutral-200"
                       >
                         10%
                       </button>
                       <button
                         type="button"
                         onClick={() => handleAplicarPropinaPct(15)}
-                        className="px-2 py-1 rounded-lg bg-neutral-100 hover:bg-black hover:text-white text-[10px] font-mono font-bold cursor-pointer border border-neutral-200"
+                        className="px-2 py-1 rounded-lg bg-neutral-100 hover:bg-black hover:text-white text-xs font-mono font-bold cursor-pointer border border-neutral-200"
                       >
                         15%
                       </button>
@@ -734,7 +666,7 @@ export const BuffetPosWorkspace = () => {
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-mono uppercase text-neutral-500 font-bold mb-1">
+                    <label className="block text-xs uppercase text-neutral-500 font-bold mb-1">
                       Descuento ($)
                     </label>
                     <input
@@ -753,12 +685,12 @@ export const BuffetPosWorkspace = () => {
                         );
                         setMontoRecibido(nuevoTotal);
                       }}
-                      className="w-full px-3 py-1.5 rounded-xl border border-neutral-300 text-xs font-mono"
+                      className="w-full px-3 py-2 rounded-xl border border-neutral-300 text-sm font-mono"
                     />
                   </div>
                 </div>
 
-                {/* Selector de Método de Pago */}
+                {/* Método de Pago */}
                 <div className="grid grid-cols-3 gap-2">
                   {[
                     { id: 'Efectivo', icon: Banknote },
@@ -780,7 +712,7 @@ export const BuffetPosWorkspace = () => {
                             : 'bg-neutral-100 text-black hover:bg-neutral-200 border border-neutral-200'
                         }`}
                       >
-                        <Icon className="w-3.5 h-3.5" />
+                        <Icon className="w-4 h-4" />
                         <span>{m.id}</span>
                       </button>
                     );
@@ -790,14 +722,14 @@ export const BuffetPosWorkspace = () => {
                 {metodoPago === 'Efectivo' ? (
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <label className="text-[11px] font-mono uppercase text-neutral-500 font-bold">
-                        Monto Recibido en Efectivo
+                      <label className="text-xs uppercase text-neutral-500 font-bold">
+                        Recibido
                       </label>
                       <div className="flex gap-1">
                         <button
                           type="button"
                           onClick={() => setMontoRecibido(granTotalCobro)}
-                          className="px-2 py-0.5 rounded bg-neutral-100 hover:bg-black hover:text-white text-[10px] font-mono font-bold cursor-pointer border border-neutral-200"
+                          className="px-2 py-0.5 rounded bg-neutral-100 hover:bg-black hover:text-white text-xs font-mono font-bold cursor-pointer border border-neutral-200"
                         >
                           Exacto
                         </button>
@@ -806,7 +738,7 @@ export const BuffetPosWorkspace = () => {
                             key={billete}
                             type="button"
                             onClick={() => setMontoRecibido(billete)}
-                            className="px-2 py-0.5 rounded bg-neutral-100 hover:bg-black hover:text-white text-[10px] font-mono font-bold cursor-pointer border border-neutral-200"
+                            className="px-2 py-0.5 rounded bg-neutral-100 hover:bg-black hover:text-white text-xs font-mono font-bold cursor-pointer border border-neutral-200"
                           >
                             ${billete}
                           </button>
@@ -817,54 +749,53 @@ export const BuffetPosWorkspace = () => {
                       type="number"
                       value={montoRecibido}
                       onChange={(e) => setMontoRecibido(Number(e.target.value))}
-                      className="w-full px-3.5 py-2 rounded-xl border border-neutral-300 text-sm font-mono font-bold"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 text-base font-mono font-bold"
                     />
                   </div>
                 ) : (
                   <div>
-                    <label className="block text-[11px] font-mono uppercase text-neutral-500 font-bold mb-1">
-                      Referencia de Terminal / SPEI
+                    <label className="block text-xs uppercase text-neutral-500 font-bold mb-1">
+                      Referencia
                     </label>
                     <input
                       type="text"
                       value={referencia}
                       onChange={(e) => setReferencia(e.target.value)}
-                      placeholder="Ej. AUT-90421"
-                      className="w-full px-3.5 py-2 rounded-xl border border-neutral-300 text-xs font-mono"
+                      placeholder="Opcional"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 text-sm font-mono"
                     />
                   </div>
                 )}
 
-                {/* Barra de Total y Cambio en Negro y Blanco */}
+                {/* Total y Cambio */}
                 <div className="p-4 rounded-2xl bg-black text-white space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono uppercase text-neutral-300">
-                      TOTAL A COBRAR
+                    <span className="text-sm font-bold uppercase text-neutral-300">
+                      Total
                     </span>
-                    <span className="text-2xl font-black font-mono text-white">
-                      ${granTotalCobro.toFixed(2)} MXN
+                    <span className="text-3xl font-anton tracking-wide text-white">
+                      ${granTotalCobro.toFixed(2)}
                     </span>
                   </div>
                   {metodoPago === 'Efectivo' && (
-                    <div className="flex items-center justify-between pt-2 border-t border-white/15 text-xs font-mono">
-                      <span className="text-neutral-400">Cambio a entregar:</span>
+                    <div className="flex items-center justify-between pt-2 border-t border-white/15 text-sm font-mono">
+                      <span className="text-neutral-400">Cambio:</span>
                       <span className="font-bold text-white">
                         {cambioCalculado >= 0
-                          ? `$${cambioCalculado.toFixed(2)} MXN`
+                          ? `$${cambioCalculado.toFixed(2)}`
                           : `Faltan $${Math.abs(cambioCalculado).toFixed(2)}`}
                       </span>
                     </div>
                   )}
                 </div>
 
-                {/* Botón Principal de Cobro */}
                 <button
                   type="button"
                   onClick={handleCobrar}
-                  className="w-full py-3.5 rounded-2xl bg-black hover:bg-neutral-800 text-white font-sans font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition cursor-pointer"
+                  className="w-full py-3.5 rounded-2xl bg-black hover:bg-neutral-800 text-white font-sans font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition cursor-pointer"
                 >
                   <CheckCircle2 className="w-4 h-4" />
-                  <span>Cobrar Cuenta, Reflejar Pago y Emitir Ticket</span>
+                  <span>Cobrar y Emitir Ticket</span>
                 </button>
 
                 <div className="grid grid-cols-2 gap-2.5">
@@ -883,7 +814,7 @@ export const BuffetPosWorkspace = () => {
                     className="py-2.5 rounded-xl bg-neutral-100 hover:bg-black hover:text-white text-black border border-neutral-300 text-xs font-bold flex items-center justify-center gap-1.5 transition cursor-pointer"
                   >
                     <Bell className="w-3.5 h-3.5" />
-                    <span>Marcar Por Pagar</span>
+                    <span>Por Pagar</span>
                   </button>
 
                   <button
@@ -892,7 +823,7 @@ export const BuffetPosWorkspace = () => {
                     className="py-2.5 rounded-xl bg-white hover:bg-black hover:text-white text-black border border-neutral-300 text-xs font-bold flex items-center justify-center gap-1.5 transition cursor-pointer"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
-                    <span>Liberar Mesa</span>
+                    <span>Liberar</span>
                   </button>
                 </div>
               </div>

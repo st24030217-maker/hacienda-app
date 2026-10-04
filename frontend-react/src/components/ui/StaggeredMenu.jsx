@@ -442,33 +442,13 @@ export const StaggeredMenu = ({
             theme={isScrolled ? 'light' : 'dark'}
             className="w-11 h-12 sm:w-12 sm:h-14"
           />
-          <div>
-            <div className="flex items-center gap-2">
-              <span
-                className={`font-anton text-xl sm:text-2xl tracking-wider uppercase ${
-                  isScrolled ? 'text-black' : 'text-white'
-                }`}
-              >
-                La Hacienda
-              </span>
-              <span
-                className={`hidden sm:inline-flex text-[10px] uppercase font-mono tracking-widest px-2.5 py-0.5 rounded-full font-bold ${
-                  isScrolled
-                    ? 'bg-neutral-100 text-black border border-neutral-300'
-                    : 'bg-white/15 text-white border border-white/20'
-                }`}
-              >
-                STAGGERED MENU POS
-              </span>
-            </div>
-            <p
-              className={`text-[11px] font-sans hidden md:block ${
-                isScrolled ? 'text-neutral-500' : 'text-neutral-400'
-              }`}
-            >
-              Buffet Adulto $280 · Niño $180 • Plano Interactivo de 23 Mesas
-            </p>
-          </div>
+          <span
+            className={`font-anton text-2xl sm:text-3xl tracking-wider uppercase ${
+              isScrolled ? 'text-black' : 'text-white'
+            }`}
+          >
+            La Hacienda
+          </span>
         </div>
 
         {/* Telemetría rápida + Botón Oficial StaggeredMenu */}
@@ -485,13 +465,12 @@ export const StaggeredMenu = ({
               {currentTime.toLocaleTimeString('es-MX', {
                 hour: '2-digit',
                 minute: '2-digit',
-                second: '2-digit',
               })}
             </span>
           </div>
 
           <div
-            className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono ${
+            className={`hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-sans font-bold ${
               isScrolled
                 ? 'bg-neutral-100 text-black border border-neutral-200'
                 : 'bg-white/10 text-white border border-white/15'
@@ -501,8 +480,8 @@ export const StaggeredMenu = ({
               size={14}
               className={isScrolled ? 'text-black shrink-0' : 'text-white shrink-0'}
             />
-            <span className="text-[11px]">
-              {mesasActivasCount} Activas · ${(corte?.granTotalCobrado || 0).toFixed(0)} MXN
+            <span>
+              {mesasActivasCount} Activas · ${(corte?.granTotalCobrado || 0).toFixed(0)}
             </span>
           </div>
 
@@ -511,7 +490,7 @@ export const StaggeredMenu = ({
               type="button"
               onClick={onLogout}
               title={`Cerrar sesión de ${user.nombre}`}
-              className={`hidden md:flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-mono font-bold transition cursor-pointer ${
+              className={`hidden md:flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-sans font-bold transition cursor-pointer ${
                 isScrolled
                   ? 'bg-neutral-100 hover:bg-black hover:text-white text-black border border-neutral-200'
                   : 'bg-white/10 hover:bg-white hover:text-black text-white'
@@ -564,11 +543,11 @@ export const StaggeredMenu = ({
                 theme="light"
                 className="w-9 h-10"
               />
-              <span className="text-[11px] font-mono uppercase tracking-widest text-neutral-600 font-bold">
-                MENÚ PRINCIPAL · LA HACIENDA RESTAURANTE
+              <span className="text-base font-anton uppercase tracking-wider text-black">
+                La Hacienda
               </span>
             </div>
-            <span className="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-black text-white shrink-0">
+            <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-black text-white shrink-0">
               23 MESAS
             </span>
           </div>
@@ -617,7 +596,7 @@ export const StaggeredMenu = ({
           {displaySocials && socialItems && socialItems.length > 0 && (
             <div className="sm-socials" aria-label="Filtros rápidos de mesas y acciones">
               <h3 className="sm-socials-title">
-                Filtros Rápidos por Capacidad & Acciones
+                Capacidad
               </h3>
               <ul className="sm-socials-list" role="list">
                 {socialItems.map((s, i) => (

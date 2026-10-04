@@ -102,10 +102,10 @@ export const HaciendaFloorPlanMap = () => {
       <div className="flex flex-wrap items-center justify-between gap-2 bg-neutral-100 p-3 rounded-2xl border border-neutral-300">
         <div className="flex flex-wrap items-center gap-1.5">
           {[
-            { id: 'all', label: 'Plano Completo (23)' },
-            { id: 'superior', label: 'Pasillo Superior (7)' },
-            { id: 'lateral', label: 'Pasillos Laterales (8)' },
-            { id: 'acceso', label: 'Acceso / Trasero (8)' },
+            { id: 'all', label: 'Todas (23)' },
+            { id: 'superior', label: 'Superior (7)' },
+            { id: 'lateral', label: 'Laterales (8)' },
+            { id: 'acceso', label: 'Acceso (8)' },
           ].map((z) => (
             <button
               key={z.id}
@@ -114,7 +114,7 @@ export const HaciendaFloorPlanMap = () => {
                 triggerHaptic();
                 setActiveZoneFilter(z.id);
               }}
-              className={`px-3 py-1.5 rounded-xl text-[11px] font-mono font-bold transition cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-sans font-bold transition cursor-pointer ${
                 activeZoneFilter === z.id
                   ? 'bg-black text-white shadow-sm'
                   : 'bg-white text-black hover:bg-neutral-200 border border-neutral-300'
@@ -135,7 +135,7 @@ export const HaciendaFloorPlanMap = () => {
           >
             <ZoomOut className="w-3.5 h-3.5" />
           </button>
-          <span className="px-2 text-[11px] font-mono font-bold text-black">
+          <span className="px-2 text-xs font-mono font-bold text-black">
             {Math.round(zoom * 100)}%
           </span>
           <button
@@ -161,24 +161,21 @@ export const HaciendaFloorPlanMap = () => {
       </div>
 
       {/* Leyenda Monocromática del Plano */}
-      <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-white border border-neutral-200 text-xs font-mono text-black">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-white border border-neutral-200 text-xs font-sans text-black">
         <div className="flex flex-wrap items-center gap-5">
           <span className="inline-flex items-center gap-2 font-bold">
             <span className="w-3.5 h-3.5 rounded bg-white border-2 border-black inline-block" />
-            <span>Mesa Libre (Blanco)</span>
+            <span>Libre</span>
           </span>
           <span className="inline-flex items-center gap-2 font-bold">
             <span className="w-3.5 h-3.5 rounded bg-neutral-800 border-2 border-black inline-block" />
-            <span>Ocupada / En Consumo (Negro)</span>
+            <span>Ocupada</span>
           </span>
           <span className="inline-flex items-center gap-2 font-bold">
             <span className="w-3.5 h-3.5 rounded bg-black ring-2 ring-black ring-offset-2 inline-block" />
             <span>Seleccionada</span>
           </span>
         </div>
-        <span className="text-[11px] text-neutral-500">
-          Haz clic en cualquier mesa (M1–M23) para abrir cuenta o cobrar
-        </span>
       </div>
 
       {/* Contenedor del Mapa Arquitectónico Interactivo en Blanco y Negro */}
@@ -667,54 +664,37 @@ export const HaciendaFloorPlanMap = () => {
         </div>
       </div>
 
-      {/* Barra Inferior de Telemetría del Mapa en Negro y Blanco */}
-      <div className="p-4 rounded-2xl bg-black text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs border border-neutral-800">
+      {/* Barra Inferior de la Mesa Seleccionada */}
+      <div className="p-4 rounded-2xl bg-black text-white flex items-center justify-between gap-3 text-sm border border-neutral-800">
         {hoveredStation ? (
           <div className="flex items-center gap-3">
             <span
               className="w-4 h-4 rounded-md shrink-0 border border-white/40"
               style={{ backgroundColor: hoveredStation.color }}
             />
-            <div>
-              <strong className="font-sans text-white block">{hoveredStation.name}</strong>
-              <span className="font-mono text-[11px] text-neutral-300">
-                {hoveredStation.detail}
-              </span>
-            </div>
+            <strong className="font-sans text-white">{hoveredStation.name}</strong>
           </div>
         ) : hoveredMesa ? (
           <>
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-white text-black font-mono font-black flex items-center justify-center shrink-0">
+              <div className="w-9 h-9 rounded-xl bg-white text-black font-anton text-base flex items-center justify-center shrink-0">
                 M{hoveredMesa.numero}
               </div>
-              <div>
-                <div className="font-bold text-white flex items-center gap-2 flex-wrap">
-                  <span>{hoveredMesa.nombre}</span>
-                  <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-white/15 text-white">
-                    {hoveredMesa.zona}
-                  </span>
-                  <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-white text-black font-bold">
-                    Capacidad {hoveredMesa.capacidad} pers.
-                  </span>
-                </div>
-                <div className="text-[11px] font-mono text-neutral-300 mt-0.5">
-                  {hoveredMesa.ordenActiva
-                    ? `Cuenta Abierta (${hoveredMesa.ordenActiva.folio}): ${hoveredMesa.ordenActiva.cantAdultos} Adulto(s) ($280) · ${hoveredMesa.ordenActiva.cantNinos} Niño(s) ($180)`
-                    : 'Mesa libre — Haz clic sobre la mesa en el mapa para abrir su cuenta de buffet'}
-                </div>
+              <div className="font-bold text-white flex items-center gap-2 flex-wrap">
+                <span>{hoveredMesa.nombre}</span>
+                <span className="text-xs px-2.5 py-0.5 rounded-full bg-white/15 text-white">
+                  {hoveredMesa.zona}
+                </span>
+                <span className="text-xs px-2.5 py-0.5 rounded-full bg-white text-black font-bold">
+                  {hoveredMesa.capacidad} pers.
+                </span>
               </div>
             </div>
 
-            <div className="text-right font-mono shrink-0">
-              <span className="text-[10px] uppercase text-neutral-400 block">
-                {hoveredMesa.ordenActiva ? 'Total en Mesa' : 'Estado'}
-              </span>
-              <span className="text-sm font-black text-white">
-                {hoveredMesa.ordenActiva
-                  ? `$${Number(hoveredMesa.ordenActiva.total).toFixed(2)} MXN`
-                  : 'DISPONIBLE'}
-              </span>
+            <div className="text-right font-anton text-lg text-white shrink-0">
+              {hoveredMesa.ordenActiva
+                ? `$${Number(hoveredMesa.ordenActiva.total).toFixed(2)}`
+                : 'LIBRE'}
             </div>
           </>
         ) : null}

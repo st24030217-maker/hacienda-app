@@ -41,53 +41,39 @@ export const PaymentReflectionHistory = () => {
         className="p-6 sm:p-8 flex flex-col justify-between"
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 mb-6 gap-4 border-b border-white/15">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="px-3 py-1 rounded-full bg-white text-black text-[10px] font-mono font-bold uppercase tracking-widest">
-                BITÁCORA OFICIAL DE CAJA & REFLEJO DE PAGOS
-              </span>
-              <span className="text-neutral-500 text-xs font-mono">•</span>
-              <span className="text-[11px] font-mono text-neutral-300">
-                .NET API + PHP + MYSQL
-              </span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-2.5">
-              <History className="w-6 h-6 text-white" />
-              <span>Reflejo de Pagos e Historial de Tickets</span>
-            </h2>
-            <p className="text-xs sm:text-sm text-neutral-300 mt-1 font-sans max-w-2xl leading-relaxed">
-              Registro auditable de cuentas liquidadas con desglose de Buffet Adulto ($280.00 MXN), Buffet Niño ($180.00 MXN), consumo extra y arqueo por método de cobro.
-            </p>
-          </div>
+          <h2 className="text-2xl sm:text-3xl font-anton uppercase tracking-wider text-white flex items-center gap-2.5">
+            <History className="w-6 h-6 text-white" />
+            <span>Historial de Pagos</span>
+          </h2>
 
           <div className="flex items-center gap-3">
             <div className="text-right font-sans">
-              <span className="text-[10px] uppercase tracking-wider text-neutral-400 block">
-                Total Reflejado Hoy
+              <span className="text-xs uppercase tracking-wider text-neutral-400 block">
+                Total Hoy
               </span>
-              <span className="text-lg font-black text-white flex items-center justify-end gap-1 font-mono">
-                <CurrencyDollarIcon size={16} className="text-white" />
+              <span className="text-2xl font-anton tracking-wide text-white flex items-center justify-end gap-0.5">
+                <CurrencyDollarIcon size={18} className="text-white" />
                 <AnimeCounter
                   value={corte?.granTotalCobrado || 0}
                   decimals={2}
                   duration={600}
-                  className="text-lg font-black text-white font-mono"
+                  className="text-2xl font-anton tracking-wide text-white"
                 />
               </span>
             </div>
             <span className="text-xs font-mono text-black bg-white font-bold px-3.5 py-1.5 rounded-full shadow-sm">
-              {pagos.length} Pagos
+              {pagos.length} Tickets
             </span>
           </div>
         </div>
 
-        {/* Selector de Filtro por Método de Pago en Blanco y Negro */}
+        {/* Filtros por Método de Pago */}
         <div className="flex flex-wrap items-center gap-2 mb-6">
           {[
-            { id: 'Todos', label: 'Todos los Cobros', icon: Receipt },
+            { id: 'Todos', label: 'Todos', icon: Receipt },
             { id: 'Efectivo', label: 'Efectivo', icon: Banknote },
             { id: 'Tarjeta', label: 'Tarjeta', icon: CreditCard },
-            { id: 'Transferencia', label: 'Transferencia SPEI', icon: Smartphone },
+            { id: 'Transferencia', label: 'SPEI', icon: Smartphone },
           ].map((f) => {
             const Icon = f.icon;
             const active = filtroMetodoPago === f.id;
@@ -96,13 +82,13 @@ export const PaymentReflectionHistory = () => {
                 key={f.id}
                 type="button"
                 onClick={() => handleFilterChange(f.id)}
-                className={`px-4 py-2 rounded-xl text-xs font-sans font-bold transition flex items-center gap-2 cursor-pointer ${
+                className={`px-4 py-2 rounded-xl text-sm font-sans font-bold transition flex items-center gap-2 cursor-pointer ${
                   active
                     ? 'bg-white text-black shadow-md'
                     : 'bg-white/10 text-neutral-300 hover:text-white hover:bg-white/20 border border-white/10'
                 }`}
               >
-                <Icon className="w-3.5 h-3.5" />
+                <Icon className="w-4 h-4" />
                 <span>{f.label}</span>
               </button>
             );
@@ -112,85 +98,64 @@ export const PaymentReflectionHistory = () => {
         {/* Tabla de Pagos */}
         {pagos.length === 0 ? (
           <div className="text-center py-12 rounded-3xl bg-white/5 font-sans border border-white/10">
-            <Receipt className="w-12 h-12 text-neutral-500 mx-auto mb-3" />
-            <h4 className="text-sm font-semibold text-neutral-200">
-              No hay pagos registrados con este filtro
+            <Receipt className="w-10 h-10 text-neutral-500 mx-auto mb-2" />
+            <h4 className="text-base font-bold text-neutral-200">
+              Sin pagos registrados
             </h4>
-            <p className="text-xs text-neutral-400 max-w-sm mx-auto mt-1">
-              Los pagos se reflejan automáticamente al liquidar cualquier mesa de 4, 6 o 10 personas.
-            </p>
           </div>
         ) : (
           <div className="overflow-x-auto rounded-2xl bg-neutral-950 border border-white/15 shadow-lg">
-            <table className="w-full text-left text-xs font-sans">
+            <table className="w-full text-left text-sm font-sans">
               <thead>
-                <tr className="text-neutral-300 uppercase font-sans font-bold bg-white/10">
-                  <th className="py-3.5 px-4">Ticket / Hora</th>
-                  <th className="py-3.5 px-4">Mesa (Capacidad)</th>
-                  <th className="py-3.5 px-4">Adultos ($280)</th>
-                  <th className="py-3.5 px-4">Niños ($180)</th>
-                  <th className="py-3.5 px-4">Extras / Propina</th>
-                  <th className="py-3.5 px-4">Método / Cambio</th>
-                  <th className="py-3.5 px-4 text-right">Total Pagado</th>
-                  <th className="py-3.5 px-4 text-center">Comprobante</th>
+                <tr className="text-neutral-300 uppercase font-sans font-bold bg-white/10 text-xs">
+                  <th className="py-3.5 px-4">Folio</th>
+                  <th className="py-3.5 px-4">Mesa</th>
+                  <th className="py-3.5 px-4">Buffet</th>
+                  <th className="py-3.5 px-4">Extras</th>
+                  <th className="py-3.5 px-4">Método</th>
+                  <th className="py-3.5 px-4 text-right">Total</th>
+                  <th className="py-3.5 px-4 text-center">Ticket</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/10 font-mono">
+              <tbody className="divide-y divide-white/10">
                 {pagos.map((p) => (
                   <tr key={p.id} className="hover:bg-white/5 transition">
-                    <td className="py-3.5 px-4">
+                    <td className="py-3.5 px-4 font-mono">
                       <span className="font-bold text-white block">{p.folioTicket}</span>
-                      <span className="text-[11px] text-neutral-400">
-                        {(p.fechaPago || '').replace('T', ' ').substring(0, 16)}
+                      <span className="text-xs text-neutral-400">
+                        {(p.fechaPago || '').replace('T', ' ').substring(11, 16)}
                       </span>
                     </td>
-                    <td className="py-3.5 px-4 font-sans">
+                    <td className="py-3.5 px-4">
                       <span className="font-bold text-white block">
                         Mesa {p.mesaNumero}
                       </span>
-                      <span className="text-[10px] font-mono text-neutral-400">
-                        Capacidad {p.mesaCapacidad} personas
+                      <span className="text-xs text-neutral-400">
+                        {p.mesaCapacidad} pers.
                       </span>
                     </td>
                     <td className="py-3.5 px-4 text-neutral-200">
-                      {p.cantAdultos} × $280 ={' '}
-                      <strong className="text-white">
-                        ${(p.cantAdultos * PRECIO_ADULTO).toFixed(2)}
-                      </strong>
+                      {p.cantAdultos} Ad. · {p.cantNinos} Niños
                     </td>
-                    <td className="py-3.5 px-4 text-neutral-200">
-                      {p.cantNinos} × $180 ={' '}
-                      <strong className="text-white">
-                        ${(p.cantNinos * PRECIO_NINO).toFixed(2)}
-                      </strong>
+                    <td className="py-3.5 px-4 font-mono text-neutral-300">
+                      ${Number(p.subtotalExtras || 0).toFixed(2)}
                     </td>
-                    <td className="py-3.5 px-4 text-neutral-300 text-[11px]">
-                      <div>Extras: ${Number(p.subtotalExtras || 0).toFixed(2)}</div>
-                      <div>Propina: ${Number(p.propina || 0).toFixed(2)}</div>
-                    </td>
-                    <td className="py-3.5 px-4 font-sans">
-                      <span className="text-[11px] text-black bg-white px-2.5 py-0.5 rounded-lg font-bold inline-block">
+                    <td className="py-3.5 px-4">
+                      <span className="text-xs text-black bg-white px-2.5 py-1 rounded-lg font-bold inline-block">
                         {p.metodoPago}
                       </span>
-                      <span className="block text-[10px] font-mono text-neutral-300 mt-1">
-                        Rec: ${Number(p.montoRecibido || 0).toFixed(2)} · Cambio: $
-                        {Number(p.cambio || 0).toFixed(2)}
-                      </span>
                     </td>
-                    <td className="py-3.5 px-4 text-right font-bold text-sm text-white">
-                      <span className="inline-flex items-center gap-0.5 justify-end">
-                        <CurrencyDollarIcon size={14} className="text-white" />
-                        <span>{Number(p.montoTotal || 0).toFixed(2)}</span>
-                      </span>
+                    <td className="py-3.5 px-4 text-right font-anton text-lg tracking-wide text-white">
+                      ${Number(p.montoTotal || 0).toFixed(2)}
                     </td>
                     <td className="py-3.5 px-4 text-center">
                       <button
                         type="button"
                         onClick={() => setSelectedTicket(p)}
-                        className="px-3.5 py-1.5 rounded-xl bg-white hover:bg-neutral-200 text-black transition text-[11px] font-sans font-bold inline-flex items-center gap-1.5 cursor-pointer"
+                        className="px-3.5 py-1.5 rounded-xl bg-white hover:bg-neutral-200 text-black transition text-xs font-sans font-bold inline-flex items-center gap-1.5 cursor-pointer"
                       >
                         <Receipt className="w-3.5 h-3.5" />
-                        <span>Ver Ticket</span>
+                        <span>Ver</span>
                       </button>
                     </td>
                   </tr>
@@ -201,7 +166,7 @@ export const PaymentReflectionHistory = () => {
         )}
       </WobbleCard>
 
-      {/* Modal de Comprobante / Ticket Imprimible 80mm en Blanco y Negro */}
+      {/* Modal de Ticket 80mm */}
       {selectedTicket && (
         <div
           role="dialog"
@@ -225,25 +190,23 @@ export const PaymentReflectionHistory = () => {
               />
               <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-black text-white text-[10px] font-mono font-bold mb-2">
                 <CheckCircle2 className="w-3 h-3" />
-                <span>PAGO REFLEJADO</span>
+                <span>PAGADO</span>
               </span>
-              <h3 className="text-xl font-black text-black tracking-tight">
-                LA HACIENDA RESTAURANTE
+              <h3 className="text-2xl font-anton uppercase tracking-wider text-black">
+                La Hacienda
               </h3>
               <p className="text-xs text-neutral-600 font-mono">
-                FOLIO: {selectedTicket.folioTicket} · MESA #{selectedTicket.mesaNumero} (
-                {selectedTicket.mesaCapacidad} PERS.)
+                {selectedTicket.folioTicket} · MESA {selectedTicket.mesaNumero}
               </p>
-              <p className="text-[11px] text-neutral-500 font-mono mt-0.5">
-                {(selectedTicket.fechaPago || '').replace('T', ' ').substring(0, 19)} · Cajero:{' '}
-                {selectedTicket.cajero}
+              <p className="text-xs text-neutral-500 font-mono mt-0.5">
+                {(selectedTicket.fechaPago || '').replace('T', ' ').substring(0, 16)}
               </p>
             </div>
 
             <div className="space-y-2 text-xs font-mono border-b border-dashed border-neutral-400 pb-4 mb-4">
               {selectedTicket.cantAdultos > 0 && (
                 <div className="flex justify-between">
-                  <span>{selectedTicket.cantAdultos}x Buffet Adulto ($280.00)</span>
+                  <span>{selectedTicket.cantAdultos}x Buffet Adulto ($280)</span>
                   <span className="font-bold">
                     ${(selectedTicket.cantAdultos * PRECIO_ADULTO).toFixed(2)}
                   </span>
@@ -251,7 +214,7 @@ export const PaymentReflectionHistory = () => {
               )}
               {selectedTicket.cantNinos > 0 && (
                 <div className="flex justify-between">
-                  <span>{selectedTicket.cantNinos}x Buffet Niño ($180.00)</span>
+                  <span>{selectedTicket.cantNinos}x Buffet Niño ($180)</span>
                   <span className="font-bold">
                     ${(selectedTicket.cantNinos * PRECIO_NINO).toFixed(2)}
                   </span>
@@ -268,14 +231,6 @@ export const PaymentReflectionHistory = () => {
             </div>
 
             <div className="space-y-1.5 text-xs font-mono border-b border-dashed border-neutral-400 pb-4 mb-4">
-              <div className="flex justify-between text-neutral-600">
-                <span>Subtotal Buffet:</span>
-                <span>${Number(selectedTicket.subtotalBuffet || 0).toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between text-neutral-600">
-                <span>Subtotal Extras:</span>
-                <span>${Number(selectedTicket.subtotalExtras || 0).toFixed(2)}</span>
-              </div>
               {selectedTicket.descuento > 0 && (
                 <div className="flex justify-between text-black font-bold">
                   <span>Descuento:</span>
@@ -288,48 +243,22 @@ export const PaymentReflectionHistory = () => {
                   <span>${Number(selectedTicket.propina).toFixed(2)}</span>
                 </div>
               )}
-              <div className="flex justify-between text-base font-black text-black pt-2">
-                <span>TOTAL PAGADO:</span>
-                <span>${Number(selectedTicket.montoTotal || 0).toFixed(2)} MXN</span>
+              <div className="flex justify-between text-lg font-black text-black pt-1">
+                <span>TOTAL:</span>
+                <span>${Number(selectedTicket.montoTotal || 0).toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-neutral-600 pt-1">
-                <span>Método de Pago:</span>
+                <span>Método:</span>
                 <span className="font-bold text-black">{selectedTicket.metodoPago}</span>
               </div>
               <div className="flex justify-between text-neutral-600">
-                <span>Monto Recibido:</span>
+                <span>Recibido:</span>
                 <span>${Number(selectedTicket.montoRecibido || 0).toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-black font-bold">
-                <span>Cambio Entregado:</span>
+                <span>Cambio:</span>
                 <span>${Number(selectedTicket.cambio || 0).toFixed(2)}</span>
               </div>
-            </div>
-
-            {/* Código QR SVG de Verificación CFDI */}
-            <div className="flex items-center justify-between bg-neutral-100 border border-neutral-200 p-3 rounded-2xl mb-5">
-              <div className="text-[11px] font-sans text-neutral-700">
-                <strong className="text-black block font-mono">
-                  SELLO DIGITAL VERIFICADO
-                </strong>
-                <span>La Hacienda Buffet · Tarifas $280 / $180</span>
-              </div>
-              <svg className="w-14 h-14 shrink-0" viewBox="0 0 100 100">
-                <rect width="100" height="100" fill="#FFFFFF" />
-                <rect x="8" y="8" width="24" height="24" fill="#000" />
-                <rect x="12" y="12" width="16" height="16" fill="#FFFFFF" />
-                <rect x="16" y="16" width="8" height="8" fill="#000" />
-                <rect x="68" y="8" width="24" height="24" fill="#000" />
-                <rect x="72" y="12" width="16" height="16" fill="#FFFFFF" />
-                <rect x="76" y="16" width="8" height="8" fill="#000" />
-                <rect x="8" y="68" width="24" height="24" fill="#000" />
-                <rect x="12" y="72" width="16" height="16" fill="#FFFFFF" />
-                <rect x="16" y="76" width="8" height="8" fill="#000" />
-                <rect x="42" y="42" width="16" height="16" fill="#000" />
-                <rect x="44" y="16" width="10" height="10" fill="#000" />
-                <rect x="66" y="50" width="12" height="12" fill="#000" />
-                <rect x="46" y="72" width="14" height="14" fill="#000" />
-              </svg>
             </div>
 
             <div className="flex gap-2.5">
@@ -339,7 +268,7 @@ export const PaymentReflectionHistory = () => {
                 className="flex-1 py-3 rounded-xl bg-black hover:bg-neutral-800 text-white text-xs font-bold flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Printer className="w-4 h-4" />
-                <span>Imprimir Ticket 80mm</span>
+                <span>Imprimir</span>
               </button>
               <button
                 type="button"
