@@ -331,11 +331,11 @@ const MainContent = () => {
           id="interactive-system"
           className="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 space-y-6 scroll-mt-24"
         >
-          {/* Logo Oficial en Blanco Protagonista */}
-          <div className="flex flex-col items-center justify-center text-center py-2">
+          {/* Logo Oficial en Blanco */}
+          <div className="flex flex-col items-center justify-center text-center py-1">
             <HaciendaLogo
               theme="dark"
-              className="w-36 h-40 sm:w-44 sm:h-48"
+              className="w-28 h-32 sm:w-32 sm:h-36"
             />
           </div>
 
@@ -353,30 +353,27 @@ const MainContent = () => {
         </main>
       </section>
 
-      {/* Footer con Logos en Blanco (La Hacienda + SSS.Solutions) */}
-      <footer className="relative z-10 border-t border-white/15 bg-black/95 backdrop-blur-xl py-8 text-center text-xs text-neutral-400 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3.5">
+      {/* Footer con Logos en Blanco sin contorno */}
+      <footer className="relative z-10 border-t border-white/15 bg-black/95 backdrop-blur-xl py-6 text-center text-xs text-neutral-400 mt-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
             <HaciendaLogo
               theme="dark"
-              className="w-16 h-18"
+              className="w-12 h-14"
             />
-            <span className="font-anton text-xl text-white tracking-wider uppercase">
+            <span className="font-anton text-lg text-white tracking-wider uppercase">
               La Hacienda
             </span>
           </div>
 
-          <div className="flex items-center gap-4 py-3 px-6 rounded-2xl bg-neutral-950 border border-white/25 shadow-[0_0_25px_rgba(255,255,255,0.08)]">
-            <span className="text-xs uppercase tracking-widest font-mono text-neutral-300 font-bold">
+          <div className="flex items-center gap-3">
+            <span className="text-[11px] uppercase tracking-widest font-mono text-neutral-400 font-bold">
               Powered by
             </span>
             <img
               src="./sss-solutions-logo.png"
               alt="SSS.Solutions"
-              style={{
-                filter: 'brightness(1.2) drop-shadow(0 0 12px rgba(255,255,255,0.4))',
-              }}
-              className="h-14 sm:h-16 w-auto object-contain"
+              className="h-9 sm:h-10 w-auto object-contain"
             />
           </div>
         </div>

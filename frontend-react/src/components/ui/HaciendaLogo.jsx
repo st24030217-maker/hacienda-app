@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * Logo Oficial de "La Hacienda Restaurante" en color Blanco con fondo 100% transparente
+ * Logo Oficial de "La Hacienda Restaurante" en color Blanco con fondo 100% transparente (sin contorno)
  */
 export const HaciendaLogo = ({
   theme = 'dark',
@@ -18,12 +18,6 @@ export const HaciendaLogo = ({
         src={logoSrc}
         alt="La Hacienda Restaurante Logo"
         draggable={false}
-        style={{
-          filter:
-            theme === 'light'
-              ? 'contrast(1.2) drop-shadow(0 2px 6px rgba(0,0,0,0.15))'
-              : 'brightness(1.25) contrast(1.3) drop-shadow(0 0 18px rgba(255,255,255,0.45))',
-        }}
         className={`w-full h-full object-contain bg-transparent transition-all duration-300 ${imgClassName}`}
       />
     </div>
