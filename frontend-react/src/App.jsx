@@ -12,7 +12,7 @@ import { Tabs } from './components/ui/tabs';
 import { AnimeMetricsHub } from './components/ui/anime-metrics-hub';
 import { AnimeStaggerGroup } from './components/ui/anime-stagger-group';
 import { BackgroundBeams } from './components/ui/background-beams';
-import { StaggeredMenu } from './components/ui/StaggeredMenu';
+import { YuccaMegaMenu } from './components/ui/YuccaMegaMenu';
 import { HaciendaLogo } from './components/ui/HaciendaLogo';
 import { CurrencyDollarIcon } from './components/icons';
 import {
@@ -31,7 +31,10 @@ const MainContent = () => {
     logout,
     mesas,
     corte,
+    pagos,
     setFiltroCapacidad,
+    setFiltroMetodoPago,
+    recargarDashboard,
   } = useRestaurant();
 
   const [activeTab, setActiveTab] = useState('mesas');
@@ -60,86 +63,15 @@ const MainContent = () => {
     });
   };
 
+  const handleFilterPagos = async (metodo) => {
+    triggerHaptic();
+    setFiltroMetodoPago(metodo);
+    await recargarDashboard(metodo);
+  };
+
   const count4 = mesas.filter((m) => m.capacidad === 4).length || 11;
   const count6 = mesas.filter((m) => m.capacidad === 6).length || 8;
   const count10 = mesas.filter((m) => m.capacidad === 10).length || 4;
-
-  // Menú Principal @react-bits/StaggeredMenu-JS-CSS (Textos breves y directos)
-  const staggeredMenuItems = [
-    {
-      label: 'Mesas',
-      subtitle: '23 mesas en el plano',
-      ariaLabel: 'Ir al plano de mesas',
-      link: '#mesas',
-      value: 'mesas',
-      onClick: () => handleFilterAndGoMesas(0),
-    },
-    {
-      label: 'Pagos',
-      subtitle: `${corte?.totalPagosRegistrados || 0} tickets cobrados`,
-      ariaLabel: 'Ir al historial de pagos',
-      link: '#history',
-      value: 'history',
-      onClick: () => handleSelectFeature('history'),
-    },
-    {
-      label: 'Corte de Caja',
-      subtitle: 'Efectivo, Tarjeta y SPEI',
-      ariaLabel: 'Ir al corte de caja',
-      link: '#corte',
-      value: 'corte',
-      onClick: () => handleSelectFeature('corte'),
-    },
-    {
-      label: 'Cotizador',
-      subtitle: 'Presupuesto rápido',
-      ariaLabel: 'Ir al cotizador',
-      link: '#cotizador',
-      value: 'cotizador',
-      onClick: () => handleSelectFeature('cotizador'),
-    },
-    {
-      label: 'Accesos',
-      subtitle: 'Filtros rápidos',
-      ariaLabel: 'Ir a accesos rápidos',
-      link: '#quick-actions',
-      value: 'quick-actions',
-      onClick: () => handleSelectFeature('quick-actions'),
-    },
-  ];
-
-  // Botones inferiores rápidos dentro del StaggeredMenu
-  const staggeredSocialItems = [
-    {
-      label: 'Todas (23)',
-      link: '#todas',
-      onClick: () => handleFilterAndGoMesas(0),
-    },
-    {
-      label: `4 Pers. (${count4})`,
-      link: '#mesas-4',
-      onClick: () => handleFilterAndGoMesas(4),
-    },
-    {
-      label: `6 Pers. (${count6})`,
-      link: '#mesas-6',
-      onClick: () => handleFilterAndGoMesas(6),
-    },
-    {
-      label: `10 Pers. (${count10})`,
-      link: '#mesas-10',
-      onClick: () => handleFilterAndGoMesas(10),
-    },
-    ...(user
-      ? [
-          {
-            label: `Salir (${user.username})`,
-            link: '#logout',
-            onClick: () => logout(),
-          },
-        ]
-      : []),
-  ];
 
   // Tarjetas de Acceso Rápido en Blanco y Negro
   const quickActionsItems = [
@@ -306,21 +238,23 @@ const MainContent = () => {
     <div className="min-h-screen bg-neutral-950 relative flex flex-col font-sans selection:bg-white selection:text-black overflow-x-hidden">
       <BackgroundBeams variant="dark" className="fixed inset-0 z-0" />
 
-      <StaggeredMenu
-        position="right"
-        isFixed={true}
-        colors={['#000000', '#262626', '#525252']}
-        items={staggeredMenuItems}
-        socialItems={staggeredSocialItems}
-        displaySocials={true}
-        displayItemNumbering={true}
-        menuButtonColor="#000000"
-        openMenuButtonColor="#ffffff"
-        accentColor="#000000"
-        changeMenuColorOnOpen={true}
-        activeItemValue={activeTab}
-        user={user}
+      {/* MEGA MENÚ OFICIAL: YUCCA PACKAGING (yucca.co.za) */}
+      <YuccaMegaMenu
+        activeTab={activeTab}
+        onSelectTab={handleSelectFeature}
+        onFilterMesas={handleFilterAndGoMesas}
+        onFilterPagos={handleFilterPagos}
+        onSync={async () => {
+          await recargarDashboard();
+          sileo.success({
+            title: 'Sincronizado',
+            description: 'Estado de mesas y pagos actualizado.',
+          });
+        }}
+        mesas={mesas}
         corte={corte}
+        pagos={pagos}
+        user={user}
         onLogout={logout}
         onLogoClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       />
